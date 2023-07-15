@@ -1,22 +1,23 @@
 {% extends "base.html.jinja" %}
 
-{% block title %}{{ title }}{% endblock %}
-
 {% block content %}
-    <h1>Events</h1>
-    <ul>
-        {% for event in events %}
-            <li>
-                <p>Name: {{ event.name }}</p>
-                <p>Date: {{ event.date }}</p>
-                <p>Location: {{ event.location }}</p>
-                <p>Attendees:</p>
-                <ul>
-                    {% for attendee in event.attendees %}
-                        <li>{{ attendee.name }}</li>
-                    {% endfor %}
-                </ul>
-            </li>
-        {% endfor %}
-    </ul>
+    <h1>Welcome to Dad's Playgroup!</h1>
+    <p>A Place for Fathers and Children to Bond and Thrive</p>
+
+    <h3>Connect with Fellow Dads and Create Lasting Memories</h3>
+    <p>Join Dad's Playgroup, a supportive community built exclusively for fathers. Whether you're new to fatherhood or a seasoned dad, our playgroup offers a space for dads to connect, share experiences, and participate in fun activities with their little ones.</p>
+    <div>
+        <div>
+            <h3>A Place to Bond and Learn</h3>
+            <p>At Dad's Playgroup, we believe in the power of father-child bonding. Engage in interactive workshops, guided play sessions, and educational classes designed to enhance your parenting skills while having a blast with your kids. From messy arts and crafts to outdoor adventures, we provide a variety of activities tailored to different age groups.</p>
+        </div>
+        <div>
+            <h3>Share Stories and Wisdom</h3>
+            <p>Connect with other dads who understand the joys and challenges of raising children. Our online forum is the perfect platform to share your parenting stories, seek advice, and learn from a supportive community of like-minded fathers. Build long-lasting friendships while gaining valuable insights into fatherhood.</p>
+        </div>
+        <div>
+            <h3>Empowering Dads Everywhere</h3>
+            <p>At Dad's Playgroup, we believe that every dad possesses unique qualities and strengths. We aim to empower fathers by providing resources, expert guidance, and a network of passionate dads who want to be the best role models for their children. Celebrate the joys of fatherhood and grow together as a community.</p>
+        </div>
+    </div>
 {% endblock %}

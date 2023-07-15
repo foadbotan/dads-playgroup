@@ -1,0 +1,16 @@
+{% extends "base.html.jinja" %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+    <h1>{{ event.name }}</h1>
+    <p>Name: {{ event.name }}</p>
+    <p>Date: {{ event.date }}</p>
+    <p>Location: {{ event.location }}</p>
+    <p>Attending:</p>
+    <ul>
+        {% for attendee in event.attendees %}
+            <li><a href="/members/{{ attendee.id }}">{{ attendee.name }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}

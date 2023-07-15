@@ -8,6 +8,20 @@
     </title>
 </head>
 <body>
-    {% block content %}{% endblock %}
+    <header>
+        <h3>Dad's Playgroup</h3>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About Us</a></li>
+                <li><a href="/contact">Contact Us</a></li>
+                <li><a href="/events">Events</a></li>
+                <li><a href="/members">Members</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
 </body>
 </html>
