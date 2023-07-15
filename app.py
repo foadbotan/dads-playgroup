@@ -16,9 +16,8 @@ def create_app():
 
     @app.route("/")
     def index():
-        users = User.get_all()
-        print(users)
-        return render_template("index.html.jinja", users=users)
+        public_events = Event.get_all_public()
+        return render_template("index.html.jinja", events=public_events)
 
     return app
 

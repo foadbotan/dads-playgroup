@@ -3,10 +3,20 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
-    <h1>Heading</h1>
+    <h1>Events</h1>
     <ul>
-        {% for user in users %}
-            <li>{{ user }}</li>
+        {% for event in events %}
+            <li>
+                <p>Name: {{ event.name }}</p>
+                <p>Date: {{ event.date }}</p>
+                <p>Location: {{ event.location }}</p>
+                <p>Attendees:</p>
+                <ul>
+                    {% for attendee in event.attendees %}
+                        <li>{{ attendee.name }}</li>
+                    {% endfor %}
+                </ul>
+            </li>
         {% endfor %}
     </ul>
 {% endblock %}
