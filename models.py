@@ -1,6 +1,8 @@
 from flask_sqlalchemy import SQLAlchemy
 import bcrypt
 
+# TODO: Create Location table and add relationship to Event
+
 db = SQLAlchemy()
 
 # Association tables
