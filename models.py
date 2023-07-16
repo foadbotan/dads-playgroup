@@ -106,7 +106,7 @@ class Event(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
-    date = db.Column(db.DateTime, nullable=False)
+    datetime = db.Column(db.DateTime, nullable=False)
     description = db.Column(db.Text, nullable=False)
     location = db.Column(db.String(100), nullable=False)
     image_url = db.Column(db.String)
@@ -120,7 +120,7 @@ class Event(db.Model):
     def __init__(
         self,
         name,
-        date,
+        datetime,
         description,
         location,
         creator,
@@ -129,7 +129,7 @@ class Event(db.Model):
         is_public=True,
     ):
         self.name = name
-        self.date = date
+        self.datetime = datetime
         self.description = description
         self.location = location
         self.creator = creator
@@ -170,11 +170,17 @@ class Event(db.Model):
         db.session.delete(self)
         db.session.commit()
 
+    def date(self):
+        return self.datetime.strftime("%a, %d %b")
+
+    def time(self):
+        return self.datetime.strftime("%H:%M")
+
     def to_dict(self):
         return {
             "id": self.id,
             "name": self.name,
-            "date": self.date.strftime("%Y-%m-%d %H:%M:%S"),
+            "datetime": self.datetime.strftime("%Y-%m-%d %H:%M:%S"),
             "description": self.description,
             "location": self.location,
             "image_url": self.image_url,
@@ -184,7 +190,7 @@ class Event(db.Model):
         }
 
     def __repr__(self):
-        return f"<Event id={self.id} name={self.name} date={self.date} description={self.description} location={self.location} image_url={self.image_url} is_public={self.is_public} creator_id={self.creator_id} attendees={len(self.attendees)}>"
+        return f"<Event id={self.id} name={self.name} datetime={self.datetime.strftime('%Y-%m-%d %H:%M:%S')} description={self.description} location={self.location} image_url={self.image_url} is_public={self.is_public} creator_id={self.creator_id} attendees={len(self.attendees)}>"
 
     @classmethod
     def get_by_id(cls, id):
