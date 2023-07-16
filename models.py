@@ -37,12 +37,19 @@ class User(db.Model):
 
         return self
 
-    def update(self, name, email, password, is_admin):
-        self.name = name
-        self.email = email
-        self.password_hash = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
-        self.is_admin = is_admin
+    def update(self, **kwargs):
+        for key, value in kwargs.items():
+            if key == "password":
+                value = bcrypt.hashpw(value.encode(), bcrypt.gensalt()).decode()
+            setattr(self, key, value)
         db.session.commit()
+
+    # def update(self, name, email, password, is_admin):
+    #     self.name = name
+    #     self.email = email
+    #     self.password_hash = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
+    #     self.is_admin = is_admin
+    #     db.session.commit()
 
     def delete(self):
         db.session.delete(self)
@@ -52,31 +59,22 @@ class User(db.Model):
         return bcrypt.checkpw(password.encode(), self.password_hash.encode())
 
     def __repr__(self):
-        return f"<User id={self.id} name={self.name} email={self.email}>"
+        return f"<User id={self.id} name={self.name} email={self.email} is_admin={self.is_admin} attending={len(self.attending)} created={len(self.created)}>"
 
     def to_dict(self):
-        return {"id": self.id, "name": self.name, "email": self.email}
+        return {
+            "id": self.id,
+            "name": self.name,
+            "email": self.email,
+            "is_admin": self.is_admin,
+            "attending": [event.to_dict() for event in self.attending],
+            "created": [event.to_dict() for event in self.created],
+        }
 
-    def create_event(
-        self,
-        name,
-        date,
-        description,
-        location,
-        attendees=[],
-        image_url=None,
-        is_public=True,
-    ):
-        event = Event(
-            name=name,
-            date=date,
-            description=description,
-            location=location,
-            creator=self,
-            attendees=attendees,
-            image_url=image_url,
-            is_public=is_public,
-        )
+    def create_event(self, **kwargs):
+        event = Event(creator=self, **kwargs)
+        db.session.add(event)
+        db.session.commit()
         return event
 
     @classmethod
@@ -128,7 +126,7 @@ class Event(db.Model):
         creator,
         attendees=[],
         image_url=None,
-        is_public=False,
+        is_public=True,
     ):
         self.name = name
         self.date = date
@@ -144,14 +142,29 @@ class Event(db.Model):
 
         return self
 
-    def update(self, name, date, description, location, image_url, is_public):
-        self.name = name
-        self.date = date
-        self.description = description
-        self.location = location
-        self.image_url = image_url
-        self.is_public = is_public
+    def update(self, **kwargs):
+        for key, value in kwargs.items():
+            setattr(self, key, value)
         db.session.commit()
+
+    # def update(
+    #     self,
+    #     name,
+    #     date,
+    #     description,
+    #     location,
+    #     attendees,
+    #     image_url=None,
+    #     is_public=False,
+    # ):
+    #     self.name = name
+    #     self.date = date
+    #     self.description = description
+    #     self.location = location
+    #     self.attendees = attendees
+    #     self.image_url = image_url
+    #     self.is_public = is_public
+    #     db.session.commit()
 
     def delete(self):
         db.session.delete(self)
@@ -171,7 +184,7 @@ class Event(db.Model):
         }
 
     def __repr__(self):
-        return f"<Event id={self.id} name={self.name} date={self.date} location={self.location} is_public={self.is_public} creator_id={self.creator_id}>"
+        return f"<Event id={self.id} name={self.name} date={self.date} description={self.description} location={self.location} image_url={self.image_url} is_public={self.is_public} creator_id={self.creator_id} attendees={len(self.attendees)}>"
 
     @classmethod
     def get_by_id(cls, id):
