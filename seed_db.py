@@ -1,3 +1,6 @@
+from models import User, Event
+
+
 def seed_db(db):
     db.drop_all()
     db.create_all()

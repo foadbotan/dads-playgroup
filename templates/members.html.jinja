@@ -11,7 +11,7 @@
                 <p>Attending:</p>
                 <ul>
                     {% for event in member.events %}
-                        <li>{{ event.name }}</li>
+                        <li><a href="/events/{{ event.id }}">{{ event.name }}</a></li>
                     {% endfor %}
                 </ul>
             </li>
