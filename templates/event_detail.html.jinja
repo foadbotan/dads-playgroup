@@ -1,9 +1,9 @@
 {% extends "base.html.jinja" %}
 
-{% block title %}{% endblock %}
+{% block title %} - {{ title }}{% endblock %}
 
 {% block content %}
-    <h1>{{ event.name }}</h1>
+    <h1>{{ title }}</h1>
     <p>Date: {{ event.f_date }}</p>
     <p>Time: {{ event.f_time }}</p>
     <p>Location: {{ event.location }}</p>
@@ -14,5 +14,12 @@
             <li><a href="/members/{{ attendee.id }}">{{ attendee.name }}</a></li>
         {% endfor %}
     </ul>
-    <a href="/events/edit/{{ event.id }}">Edit</a>
+    {% if button_text %}
+        <form method="POST">
+            <input type="submit" value="{{ button_text }}">
+        </form>
+    {% else %}
+        <a href="/events/edit/{{ event.id }}">Edit</a>
+        <a href="/events/delete/{{ event.id }}">Delete</a>
+    {% endif %}
 {% endblock %}
