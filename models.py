@@ -44,13 +44,6 @@ class User(db.Model):
             setattr(self, key, value)
         db.session.commit()
 
-    # def update(self, name, email, password, is_admin):
-    #     self.name = name
-    #     self.email = email
-    #     self.password_hash = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
-    #     self.is_admin = is_admin
-    #     db.session.commit()
-
     def delete(self):
         db.session.delete(self)
         db.session.commit()
@@ -146,25 +139,6 @@ class Event(db.Model):
         for key, value in kwargs.items():
             setattr(self, key, value)
         db.session.commit()
-
-    # def update(
-    #     self,
-    #     name,
-    #     date,
-    #     description,
-    #     location,
-    #     attendees,
-    #     image_url=None,
-    #     is_public=False,
-    # ):
-    #     self.name = name
-    #     self.date = date
-    #     self.description = description
-    #     self.location = location
-    #     self.attendees = attendees
-    #     self.image_url = image_url
-    #     self.is_public = is_public
-    #     db.session.commit()
 
     def delete(self):
         db.session.delete(self)
