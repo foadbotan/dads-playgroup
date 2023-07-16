@@ -3,9 +3,9 @@ import bcrypt
 
 db = SQLAlchemy()
 
-# Association table
-attendees = db.Table(
-    "attendees",
+# Association tables
+attendance = db.Table(
+    "attendance",
     db.Column("user_id", db.Integer, db.ForeignKey("users.id"), primary_key=True),
     db.Column("event_id", db.Integer, db.ForeignKey("events.id"), primary_key=True),
 )
@@ -19,7 +19,10 @@ class User(db.Model):
     email = db.Column(db.String, nullable=False, unique=True)
     password_hash = db.Column(db.String, nullable=False)
     is_admin = db.Column(db.Boolean, default=False)
-    events = db.relationship("Event", secondary="attendees", back_populates="attendees")
+    attending = db.relationship(
+        "Event", secondary="attendance", back_populates="attendees"
+    )
+    created = db.relationship("Event", back_populates="creator")
 
     def update(self, name, email, password, is_admin):
         self.name = name
@@ -42,12 +45,25 @@ class User(db.Model):
         return {"id": self.id, "name": self.name, "email": self.email}
 
     def create_event(
-        self, name, date, description, location, image_url=None, is_public=True
+        self,
+        name,
+        date,
+        description,
+        location,
+        attendees=[],
+        image_url=None,
+        is_public=True,
     ):
         event = Event.create(
-            name, date, description, location, image_url, is_public, self.id
+            name=name,
+            date=date,
+            description=description,
+            location=location,
+            creator=self,
+            attendees=attendees,
+            image_url=image_url,
+            is_public=is_public,
         )
-        event.attendees.append(self)
         return event
 
     @classmethod
@@ -94,8 +110,11 @@ class Event(db.Model):
     location = db.Column(db.String(100), nullable=False)
     image_url = db.Column(db.String)
     is_public = db.Column(db.Boolean, default=True)
-    created_by = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
-    attendees = db.relationship("User", secondary="attendees", back_populates="events")
+    creator_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    creator = db.relationship("User", back_populates="created")
+    attendees = db.relationship(
+        "User", secondary="attendance", back_populates="attending"
+    )
 
     def update(self, name, date, description, location, image_url, is_public):
         self.name = name
@@ -119,26 +138,12 @@ class Event(db.Model):
             "location": self.location,
             "image_url": self.image_url,
             "is_public": self.is_public,
-            "created_by": self.created_by,
+            "creator_id": self.creator_id,
             "attendees": [attendee.to_dict() for attendee in self.attendees],
         }
 
-    @classmethod
-    def create(
-        cls, name, date, description, location, image_url, is_public, created_by
-    ):
-        event = cls(
-            name=name,
-            date=date,
-            description=description,
-            location=location,
-            image_url=image_url,
-            is_public=is_public,
-            created_by=created_by,
-        )
-        db.session.add(event)
-        db.session.commit()
-        return event
+    def __repr__(self):
+        return f"<Event id={self.id} name={self.name} date={self.date} location={self.location} is_public={self.is_public} creator_id={self.creator_id}>"
 
     @classmethod
     def get_by_id(cls, id):
@@ -152,37 +157,17 @@ class Event(db.Model):
     def get_all_public(cls):
         return cls.query.filter_by(is_public=True).all()
 
-    def update(self, name, date, description, location, image_url, is_public):
-        self.name = name
-        self.date = date
-        self.description = description
-        self.location = location
-        self.image_url = image_url
-        self.is_public = is_public
-        db.session.commit()
-
-    def delete(self):
-        db.session.delete(self)
-        db.session.commit()
-
-    def __repr__(self):
-        return f"<Event id={self.id} name={self.name} date={self.date} location={self.location} is_public={self.is_public} created_by={self.created_by}>"
-
-    def to_dict(self):
-        return {
-            "id": self.id,
-            "name": self.name,
-            "date": self.date,
-            "description": self.description,
-            "location": self.location,
-            "image_url": self.image_url,
-            "is_public": self.is_public,
-            "created_by": self.created_by,
-        }
-
     @classmethod
     def create(
-        cls, name, date, description, location, image_url, is_public, created_by
+        cls,
+        name,
+        date,
+        description,
+        location,
+        creator,
+        attendees=[],
+        image_url=None,
+        is_public=False,
     ):
         event = cls(
             name=name,
@@ -191,7 +176,8 @@ class Event(db.Model):
             location=location,
             image_url=image_url,
             is_public=is_public,
-            created_by=created_by,
+            creator=creator,
+            attendees=attendees + [creator],
         )
         db.session.add(event)
         db.session.commit()

@@ -50,5 +50,7 @@ def seed_db(db):
     event2.attendees.extend([admin2, user2])
     event3.attendees.append(user1)
 
+    db.session.add_all([event1, event2, event3, event4])
+
     db.session.commit()
     print("Database seeded!")

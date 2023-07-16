@@ -6,9 +6,14 @@
     <h1>{{ member.name }}</h1>
     <p>Attending:</p>
     <ul>
-        {% for event in member.events %}
+        {% for event in member.attending %}
             <li><a href="/events/{{ event.id }}">{{ event.name }}</a></li>
         {% endfor %}
     </ul>
-
+    <p>Created:</p>
+    <ul>
+        {% for event in member.created %}
+            <li><a href="/events/{{ event.id }}">{{ event.name }}</a></li>
+        {% endfor %}
+    </ul>
 {% endblock %}

@@ -27,9 +27,9 @@ def create_app():
 
 
 if __name__ == "__main__":
-    app = create_app()
     from seed_db import seed_db
 
+    app = create_app()
     with app.app_context():
         seed_db(db)
 
