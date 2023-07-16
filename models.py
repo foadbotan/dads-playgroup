@@ -99,7 +99,8 @@ class Event(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
-    datetime = db.Column(db.DateTime, nullable=False)
+    date = db.Column(db.Date, nullable=False)
+    time = db.Column(db.Time, nullable=False)
     description = db.Column(db.Text, nullable=False)
     location = db.Column(db.String(100), nullable=False)
     image_url = db.Column(db.String)
@@ -113,7 +114,8 @@ class Event(db.Model):
     def __init__(
         self,
         name,
-        datetime,
+        date,
+        time,
         description,
         location,
         creator,
@@ -122,7 +124,8 @@ class Event(db.Model):
         is_public=True,
     ):
         self.name = name
-        self.datetime = datetime
+        self.date = date
+        self.time = time
         self.description = description
         self.location = location
         self.creator = creator
@@ -145,12 +148,12 @@ class Event(db.Model):
         db.session.commit()
 
     @property
-    def date(self):
-        return self.datetime.strftime("%a, %d %b")
+    def f_date(self):
+        return self.date.strftime("%a, %d %b")
 
     @property
-    def time(self):
-        return self.datetime.strftime("%H:%M")
+    def f_time(self):
+        return self.time.strftime("%H:%M")
 
     def to_dict(self):
         return {
@@ -166,7 +169,7 @@ class Event(db.Model):
         }
 
     def __repr__(self):
-        return f"<Event id={self.id} name={self.name} datetime={self.datetime.strftime('%Y-%m-%d %H:%M:%S')} description={self.description} location={self.location} image_url={self.image_url} is_public={self.is_public} creator_id={self.creator_id} attendees={len(self.attendees)}>"
+        return f"<Event id={self.id} name={self.name} date={self.date} time={self.time} description={self.description} location={self.location} image_url={self.image_url} is_public={self.is_public} creator_id={self.creator_id} attendees={len(self.attendees)}>"
 
     @classmethod
     def get_by_id(cls, id):

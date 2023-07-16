@@ -22,26 +22,30 @@ def seed_db(db):
 
     event1 = admin1.create_event(
         name="Event 1",
-        datetime="2021-09-01",
+        date="2023-09-01",
+        time="9:00:00",
         description="This is the first event",
         location="123 Main St, Springfield, USA",
         is_public=False,
     )
     event2 = admin1.create_event(
         name="Event 2",
-        datetime="2021-09-02",
+        date="2023-09-02",
+        time="9:30:00",
         description="This is the second event",
         location="123 Main St, Springfield, USA",
     )
     event3 = admin1.create_event(
         name="Event 3",
-        datetime="2021-09-03",
+        date="2023-09-03",
+        time="12:00:00",
         description="This is the third event",
         location="123 Main St, Springfield, USA",
     )
     event4 = admin1.create_event(
         name="Event 4",
-        datetime="2021-09-01 13:30:00",
+        date="2023-09-04",
+        time="18:00:00",
         description="This is the fourth event",
         location="123 Main St, Springfield, USA",
     )

@@ -4,9 +4,10 @@
 
 {% block content %}
     <h1>{{ event.name }}</h1>
-    <p>Name: {{ event.name }}</p>
-    <p>Date: {{ event.date }}</p>
+    <p>Date: {{ event.f_date }}</p>
+    <p>Time: {{ event.f_time }}</p>
     <p>Location: {{ event.location }}</p>
+    <p>Description: {{ event.description }}</p>
     <p>Attending:</p>
     <ul>
         {% for attendee in event.attendees %}
