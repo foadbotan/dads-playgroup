@@ -7,22 +7,22 @@
     <form method="POST">
         <p>
             <label for="name">Name:</label>
-            <input type="text" value="{{ event.name }}" id="name" name="name">
+            <input type="text" value="{{ event.name }}" id="name" name="name" required>
         <p>
             <label for="date">Date:</label>
-            <input type="date" value="{{ event.date }}" id="date" name="date">
+            <input type="date" value="{{ event.date }}" id="date" name="date" required>
         </p>
         <p>
             <label for="time">Time:</label>
-            <input type="time" value="{{ event.time }}" id="time" name="time">
+            <input type="time" value="{{ event.time }}" id="time" name="time" required>
         </p>
         <p>
             <label for="location">Location:</label>
-            <input type="text" value="{{ event.location }}" id="location" name="location">
+            <input type="text" value="{{ event.location }}" id="location" name="location" required>
         </p>
         <p>
             <label for="description">Description:</label>
-            <input type="text" value="{{ event.description }}" id="description" name="description">
+            <input type="text" value="{{ event.description }}" id="description" name="description" required>
         </p>
         <button type="submit">{{ button_text }}</button>
     </form>
