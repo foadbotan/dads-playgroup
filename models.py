@@ -144,9 +144,11 @@ class Event(db.Model):
         db.session.delete(self)
         db.session.commit()
 
+    @property
     def date(self):
         return self.datetime.strftime("%a, %d %b")
 
+    @property
     def time(self):
         return self.datetime.strftime("%H:%M")
 
