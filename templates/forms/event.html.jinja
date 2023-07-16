@@ -1,0 +1,29 @@
+{% extends "base.html.jinja" %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+    <h1>{{ title }}</h1>
+    <form method="POST">
+        <p>
+            <label for="name">Name:</label>
+            <input type="text" value="{{ event.name }}" id="name" name="name">
+        <p>
+            <label for="date">Date:</label>
+            <input type="date" value="{{ event.date }}" id="date" name="date">
+        </p>
+        <p>
+            <label for="time">Time:</label>
+            <input type="time" value="{{ event.time }}" id="time" name="time">
+        </p>
+        <p>
+            <label for="location">Location:</label>
+            <input type="text" value="{{ event.location }}" id="location" name="location">
+        </p>
+        <p>
+            <label for="description">Description:</label>
+            <input type="text" value="{{ event.description }}" id="description" name="description">
+        </p>
+        <button type="submit">{{ button_text }}</button>
+    </form>
+{% endblock %}

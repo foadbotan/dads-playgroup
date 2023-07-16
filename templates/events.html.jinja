@@ -13,6 +13,7 @@
                 <p>Time: {{ event.f_time }}</p>
                 <p>Location: {{ event.location }}</p>
                 <p>Created by: <a href="/members/{{ event.creator.id }}">{{ event.creator.name }}</a></p>
+                <a href="/events/edit/{{ event.id }}">Edit</a>
             </li>
         {% endfor %}
     </ul>
