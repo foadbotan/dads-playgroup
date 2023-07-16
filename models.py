@@ -26,6 +26,17 @@ class User(db.Model):
     )
     created = db.relationship("Event", back_populates="creator")
 
+    def __init__(self, name, email, password, is_admin=False):
+        self.name = name
+        self.email = email
+        self.is_admin = is_admin
+        self.password_hash = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
+
+        db.session.add(self)
+        db.session.commit()
+
+        return self
+
     def update(self, name, email, password, is_admin):
         self.name = name
         self.email = email
@@ -56,7 +67,7 @@ class User(db.Model):
         image_url=None,
         is_public=True,
     ):
-        event = Event.create(
+        event = Event(
             name=name,
             date=date,
             description=description,
@@ -67,16 +78,6 @@ class User(db.Model):
             is_public=is_public,
         )
         return event
-
-    @classmethod
-    def create(cls, name, email, password, is_admin=False):
-        password_hash = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
-        user = cls(
-            name=name, email=email, password_hash=password_hash, is_admin=is_admin
-        )
-        db.session.add(user)
-        db.session.commit()
-        return user
 
     @classmethod
     def authenticate(cls, email, password):
@@ -118,6 +119,31 @@ class Event(db.Model):
         "User", secondary="attendance", back_populates="attending"
     )
 
+    def __init__(
+        self,
+        name,
+        date,
+        description,
+        location,
+        creator,
+        attendees=[],
+        image_url=None,
+        is_public=False,
+    ):
+        self.name = name
+        self.date = date
+        self.description = description
+        self.location = location
+        self.creator = creator
+        self.attendees = attendees + [creator]
+        self.image_url = image_url
+        self.is_public = is_public
+
+        db.session.add(self)
+        db.session.commit()
+
+        return self
+
     def update(self, name, date, description, location, image_url, is_public):
         self.name = name
         self.date = date
@@ -158,29 +184,3 @@ class Event(db.Model):
     @classmethod
     def get_all_public(cls):
         return cls.query.filter_by(is_public=True).all()
-
-    @classmethod
-    def create(
-        cls,
-        name,
-        date,
-        description,
-        location,
-        creator,
-        attendees=[],
-        image_url=None,
-        is_public=False,
-    ):
-        event = cls(
-            name=name,
-            date=date,
-            description=description,
-            location=location,
-            image_url=image_url,
-            is_public=is_public,
-            creator=creator,
-            attendees=attendees + [creator],
-        )
-        db.session.add(event)
-        db.session.commit()
-        return event

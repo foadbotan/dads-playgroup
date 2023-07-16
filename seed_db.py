@@ -5,15 +5,15 @@ def seed_db(db):
     db.drop_all()
     db.create_all()
 
-    user1 = User.create(name="Bob", email="bob@example.com", password="password")
-    user2 = User.create(name="John", email="john@example.com", password="password")
-    admin1 = User.create(
+    user1 = User(name="Bob", email="bob@example.com", password="password")
+    user2 = User(name="John", email="john@example.com", password="password")
+    admin1 = User(
         name="Admin Harry",
         email="harry@example.com",
         password="password",
         is_admin=True,
     )
-    admin2 = User.create(
+    admin2 = User(
         name="Admin David",
         email="david@example.com",
         password="password",
