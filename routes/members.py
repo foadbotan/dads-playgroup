@@ -1,7 +1,14 @@
-from flask import Blueprint, render_template
-from models import User
+from flask import Blueprint, render_template, request, redirect, session
+from models import User, Event, require_login, require_guest
 
 members_bp = Blueprint("members", __name__, url_prefix="/members")
+
+
+# Protects all /members endpoints with require_login
+@members_bp.before_request
+@require_login
+def before_request():
+    pass
 
 
 @members_bp.get("/")

@@ -20,7 +20,7 @@
         <form method="POST">
             <input type="submit" value="{{ button_text }}">
         </form>
-    {% else %}
+    {% elif session.user and session.user.is_admin %}
         <a href="/events/edit/{{ event.id }}">Edit</a>
         <a href="/events/delete/{{ event.id }}">Delete</a>
     {% endif %}

@@ -6,7 +6,9 @@
 
 {% block content %}
     <h1>Events</h1>
-    <a href="/events/create">Create event</a>
+    {% if session.user and session.user.is_admin %}
+        <a href="/events/create">Create event</a>
+    {% endif %}
     <h2>Upcoming events</h2>
     <ul>
         {% for event in events %}
@@ -16,8 +18,10 @@
                 <p>Time: {{ event.f_time }}</p>
                 <p>Location: {{ event.location }}</p>
                 <p>Created by: <a href="/members/{{ event.creator.id }}">{{ event.creator.name }}</a></p>
-                <a href="/events/edit/{{ event.id }}">Edit</a>
-                <a href="/events/delete/{{ event.id }}">Delete</a>
+                {% if session.user and session.user.is_admin %}
+                    <a href="/events/edit/{{ event.id }}">Edit</a>
+                    <a href="/events/delete/{{ event.id }}">Delete</a>
+                {% endif %}
             </li>
         {% endfor %}
     </ul>

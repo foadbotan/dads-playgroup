@@ -1,5 +1,5 @@
-from flask import Blueprint, render_template, request, redirect
-from models import Event, User
+from flask import Blueprint, render_template, request, redirect, session
+from models import Event, User, require_admin, require_public_event, get_logged_in_user
 
 events_bp = Blueprint("events", __name__, url_prefix="/events")
 
@@ -7,16 +7,18 @@ events_bp = Blueprint("events", __name__, url_prefix="/events")
 @events_bp.get("/")
 def events_list():
     public_events = Event.get_all_public()
-    return render_template("events.html.jinja", events=public_events)
+    return render_template("events.html.jinja", events=public_events, title="Events")
 
 
 @events_bp.get("/<int:event_id>")
+@require_public_event
 def event_detail(event_id=None):
     event = Event.get_by_id(event_id)
     return render_template("event_detail.html.jinja", event=event, title=event.name)
 
 
 @events_bp.get("/create")
+@require_admin
 def event_create_form():
     return render_template(
         "forms/event.html.jinja",
@@ -27,14 +29,15 @@ def event_create_form():
 
 
 @events_bp.post("/create")
+@require_admin
 def event_create_action():
-    # TODO: add logged-in user as creator
-    creator = User.get_by_id(1)
+    creator = get_logged_in_user()
     event = creator.create_event(**request.form)
     return redirect(f"/events/{event.id}")
 
 
 @events_bp.get("/edit/<int:event_id>")
+@require_admin
 def event_edit_form(event_id=None):
     event = Event.get_by_id(event_id)
     return render_template(
@@ -46,6 +49,7 @@ def event_edit_form(event_id=None):
 
 
 @events_bp.post("/edit/<int:event_id>")
+@require_admin
 def event_edit_action(event_id=None):
     event = Event.get_by_id(event_id)
     event.update(**request.form)
@@ -53,6 +57,7 @@ def event_edit_action(event_id=None):
 
 
 @events_bp.get("/delete/<int:event_id>")
+@require_admin
 def event_delete_form(event_id=None):
     event = Event.get_by_id(event_id)
     return render_template(
@@ -64,6 +69,7 @@ def event_delete_form(event_id=None):
 
 
 @events_bp.post("/delete/<int:event_id>")
+@require_admin
 def event_delete_action(event_id=None):
     event = Event.get_by_id(event_id)
     event.delete()
