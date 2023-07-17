@@ -1,7 +1,6 @@
 from .db import db
 from .user import User
 from .event import Event
-from .attendance import attendance
 from .auth import (
     get_logged_in_user,
     require_login,

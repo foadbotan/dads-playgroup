@@ -2,7 +2,7 @@ from models.user import User
 from models.event import Event
 from models.db import db
 
-# Association tables
+# Association table
 attendance = db.Table(
     "attendance",
     db.Column("user_id", db.Integer, db.ForeignKey("users.id"), primary_key=True),
