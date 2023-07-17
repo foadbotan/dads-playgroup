@@ -2,7 +2,7 @@ from flask import Flask, render_template
 import os
 from dotenv import load_dotenv
 from models import db, User, Event
-from routes import events, members
+from routes import events, members, auth
 
 
 def create_app():
@@ -18,6 +18,7 @@ def create_app():
 
     app.register_blueprint(events.events_bp)
     app.register_blueprint(members.members_bp)
+    app.register_blueprint(auth.auth_bp)
 
     @app.route("/")
     def index():
