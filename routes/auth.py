@@ -23,7 +23,7 @@ def login_action():
     user = login(email, password)
     if not user:
         # TODO: flash message
-        redirect("/login")
+        return redirect("/login")
 
     return redirect(f"/members/{user.id}")
 
