@@ -7,6 +7,7 @@ def seed_db(db):
 
     user1 = User(name="Bob", email="bob@example.com", password="password")
     user2 = User(name="John", email="john@example.com", password="password")
+    me = User(name="Foad", email="1", password="1", is_admin=True)
     admin1 = User(
         name="Admin Harry",
         email="harry@example.com",
