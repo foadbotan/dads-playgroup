@@ -26,6 +26,10 @@
             <label for="description">Description:</label>
             <input type="text" value="{{ event.description }}" id="description" name="description" required>
         </p>
+        <p>
+            <label for="image_url">Image URL:</label>
+            <input type="text" value="{{ event.image_url }}" id="image_url" name="image_url" required>
+        </p>
         <button type="submit">{{ button_text }}</button>
     </form>
 {% endblock %}
