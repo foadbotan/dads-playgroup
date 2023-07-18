@@ -1,0 +1,23 @@
+{% extends "base.html.jinja" %}
+
+{% block title %}
+    - {{ title }}
+{% endblock %}
+
+{% block content %}
+    <h1>{{ title }}</h1>
+    <form method="POST">
+        <p>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+        </p>
+        <p>
+            <label for="email">Email:</label>
+            <input type="text" id="email" name="email" required>
+        <p>
+            <label for="password">Password:</label>
+            <input type="password"  id="password" name="password" required>
+        </p>
+        <button type="submit">{{ button_text }}</button>
+    </form>
+{% endblock %}

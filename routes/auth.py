@@ -33,3 +33,29 @@ def login_action():
 def logout_action():
     session.clear()
     return redirect("/")
+
+
+@auth_bp.get("/signup")
+@require_guest
+def signup_form():
+    return render_template(
+        "forms/signup.html.jinja",
+        title="Sign Up",
+        button_text="Sign Up",
+    )
+
+
+@auth_bp.post("/signup")
+@require_guest
+def signup_action():
+    name = request.form.get("name")
+    email = request.form.get("email")
+    password = request.form.get("password")
+
+    if User.get(email=email):
+        # TODO: flash message
+        return redirect("/login")
+
+    user = User(name=name, email=email, password=password)
+    login(email, password)
+    return redirect(f"/members/{user.id}")
