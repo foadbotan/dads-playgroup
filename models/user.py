@@ -16,11 +16,12 @@ class User(db.Model):
     )
     created = db.relationship("Event", back_populates="creator")
 
-    def __init__(self, name, email, password, is_admin=False):
-        self.name = name
-        self.email = email
-        self.is_admin = is_admin
-        self.password_hash = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
+    def __init__(self, **kwargs):
+        for key, value in kwargs.items():
+            if key == "password":
+                key = "password_hash"
+                value = bcrypt.hashpw(value.encode(), bcrypt.gensalt()).decode()
+            setattr(self, key, value)
 
         db.session.add(self)
         db.session.commit()
