@@ -1,5 +1,5 @@
 from flask import session, redirect, render_template, request, Blueprint
-from models import User, Event, require_login, require_guest
+from models import User, Event, require_login, require_guest, login
 
 auth_bp = Blueprint("auth", __name__)
 
@@ -8,7 +8,9 @@ auth_bp = Blueprint("auth", __name__)
 @require_guest
 def login_form():
     return render_template(
-        "forms/login.html.jinja", title="Login", button_text="Login", member=None
+        "forms/login.html.jinja",
+        title="Login",
+        button_text="Login",
     )
 
 
@@ -18,15 +20,11 @@ def login_action():
     email = request.form.get("email")
     password = request.form.get("password")
 
-    user = User.get_by_email(email)
-    if not user or not user.check_password(password):
+    user = login(email, password)
+    if not user:
+        # TODO: flash message
         redirect("/members/login")
 
-    session["user"] = {
-        "id": user.id,
-        "name": user.name,
-        "is_admin": user.is_admin,
-    }
     return redirect(f"/members/{user.id}")
 
 

@@ -8,4 +8,5 @@ from .auth import (
     require_admin,
     require_guest,
     require_public_event,
+    login,
 )

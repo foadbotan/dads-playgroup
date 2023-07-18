@@ -53,3 +53,16 @@ def require_public_event(func):
 
     wrapper.__name__ = func.__name__
     return wrapper
+
+
+def login(email, password):
+    user = User.get(email=email)
+    if not user or not user.check_password(password):
+        return None
+
+    session["user"] = {
+        "id": user.id,
+        "name": user.name,
+        "is_admin": user.is_admin,
+    }
+    return user
