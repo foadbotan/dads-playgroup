@@ -1,65 +1,113 @@
-{% extends "base.html.jinja" %}
+{% extends "base.html.jinja" %} {% block content %}
+<div class="relative p-32 text-center text-white">
+  <h1 class="text-5xl font-black">Welcome to Dad's Playgroup!</h1>
+  <p class="mt-2 text-xl">
+    A Place for Fathers and Children to Bond and Thrive
+  </p>
 
-{% block content %}
-    <h1 class="text-4xl ">Welcome to Dad's Playgroup!</h1>
-    <p>A Place for Fathers and Children to Bond and Thrive</p>
+  <img
+    src="https://images.unsplash.com/photo-1517554558809-9b4971b38f39?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2304&q=80"
+    class="absolute inset-0 object-cover w-full h-full -z-10 brightness-50"
+  />
+</div>
 
-    <h4>Connect with Fellow Dads and Create Lasting Memories</h4>
-    <p>Join Dad's Playgroup, a supportive community built exclusively for fathers. Whether you're new to fatherhood or a seasoned dad, our playgroup offers a space for dads to connect, share experiences, and participate in fun activities with their little ones.</p>
-    <div>
-        <div>
-            <h3>A Place to Bond and Learn</h3>
-            <p>At Dad's Playgroup, we believe in the power of father-child bonding. Engage in interactive workshops, guided play sessions, and educational classes designed to enhance your parenting skills while having a blast with your kids. From messy arts and crafts to outdoor adventures, we provide a variety of activities tailored to different age groups.</p>
-        </div>
-        <div>
-            <h3>Share Stories and Wisdom</h3>
-            <p>Connect with other dads who understand the joys and challenges of raising children. Our online forum is the perfect platform to share your parenting stories, seek advice, and learn from a supportive community of like-minded fathers. Build long-lasting friendships while gaining valuable insights into fatherhood.</p>
-        </div>
-        <div>
-            <h3>Empowering Dads Everywhere</h3>
-            <p>At Dad's Playgroup, we believe that every dad possesses unique qualities and strengths. We aim to empower fathers by providing resources, expert guidance, and a network of passionate dads who want to be the best role models for their children. Celebrate the joys of fatherhood and grow together as a community.</p>
-        </div>
-    </div>
-    <section id="events">
-        <h2>Events</h2>
-        {% if session.user and session.user.is_admin %}
-            <a href="/events/create">Create event</a>
-        {% endif %}
-        <h3>Upcoming events</h3>
-        <ul>
-            {% for event in upcoming_events %}
-                <li>
-                    <img src="{{ event.image_url }}">
-                    <h4><a href="/events/{{ event.id }}">{{ event.name }}</a></h4>
-                    <p>Date: {{ event.f_date }}</p>
-                    <p>Time: {{ event.f_time }}</p>
-                    <p>Location: {{ event.location }}</p>
-                    <p>Created by: <a href="/members/{{ event.creator.id }}">{{ event.creator.name }}</a></p>
-                    {% if session.user and session.user.is_admin %}
-                        <a href="/events/edit/{{ event.id }}">Edit</a>
-                        <a href="/events/delete/{{ event.id }}">Delete</a>
-                    {% endif %}
-                </li>
-            {% endfor %}
-        </ul>
-        <h3>Past events</h3>
-        <ul>
-            {% for event in past_events %}
-                <li>
-                    <img src="{{ event.image_url }}">
-                    <h4><a href="/events/{{ event.id }}">{{ event.name }}</a></h4>
-                    <p>Date: {{ event.f_date }}</p>
-                    <p>Time: {{ event.f_time }}</p>
-                    <p>Location: {{ event.location }}</p>
-                    <p>Created by: <a href="/members/{{ event.creator.id }}">{{ event.creator.name }}</a></p>
-                    {% if session.user and session.user.is_admin %}
-                        <a href="/events/edit/{{ event.id }}">Edit</a>
-                        <a href="/events/delete/{{ event.id }}">Delete</a>
-                    {% endif %}
-                </li>
-            {% endfor %}
-        </ul>
-    </section>
-
+<div class="mt-20">
+  <h4 class="text-xl font-medium text-gray-900">
+    Connect with Fellow Dads and Create Lasting Memories
+  </h4>
+  <p class="max-w-xl mt-2 text-gray-600">
+    Join Dad's Playgroup, a supportive community built exclusively for fathers.
+    Whether you're new to fatherhood or a seasoned dad, our playgroup offers a
+    space for dads to connect, share experiences, and participate in fun
+    activities with their little ones.
+  </p>
+</div>
+<div class="flex gap-4 mt-10">
+  <div>
+    <h4 class="text-lg text-gray-900">A Place to Bond and Learn</h4>
+    <p class="mt-2 text-gray-600">
+      At Dad's Playgroup, we believe in the power of father-child bonding.
+      Engage in interactive workshops, guided play sessions, and educational
+      classes designed to enhance your parenting skills while having a blast
+      with your kids. From messy arts and crafts to outdoor adventures, we
+      provide a variety of activities tailored to different age groups.
+    </p>
+  </div>
+  <div>
+    <h4 class="text-lg text-gray-900">Share Stories and Wisdom</h4>
+    <p class="mt-2 text-gray-600">
+      Connect with other dads who understand the joys and challenges of raising
+      children. Our online forum is the perfect platform to share your parenting
+      stories, seek advice, and learn from a supportive community of like-minded
+      fathers. Build long-lasting friendships while gaining valuable insights
+      into fatherhood.
+    </p>
+  </div>
+  <div>
+    <h4 class="text-lg text-gray-900">Empowering Dads Everywhere</h4>
+    <p class="mt-2 text-gray-600">
+      At Dad's Playgroup, we believe that every dad possesses unique qualities
+      and strengths. We aim to empower fathers by providing resources, expert
+      guidance, and a network of passionate dads who want to be the best role
+      models for their children. Celebrate the joys of fatherhood and grow
+      together as a community.
+    </p>
+  </div>
+</div>
+<section id="events" class="mt-20">
+  <div class="flex items-center justify-between py-6 border-b">
+    <h3 class="text-3xl">Upcoming events</h3>
+    {% if session.user and session.user.is_admin %}
+    <a
+      href="/events/create"
+      class="px-4 py-1 text-white bg-green-600 rounded-md"
+      >Create event</a
+    >
+    {% endif %}
+  </div>
+  <ul>
+    {% for event in upcoming_events %}
+    <li>
+      <img src="{{ event.image_url }}" />
+      <h4>
+        <a href="/events/{{ event.id }}">{{ event.name }}</a>
+      </h4>
+      <p>Date: {{ event.f_date }}</p>
+      <p>Time: {{ event.f_time }}</p>
+      <p>Location: {{ event.location }}</p>
+      <p>
+        Created by:
+        <a href="/members/{{ event.creator.id }}">{{ event.creator.name }}</a>
+      </p>
+      {% if session.user and session.user.is_admin %}
+      <a href="/events/edit/{{ event.id }}">Edit</a>
+      <a href="/events/delete/{{ event.id }}">Delete</a>
+      {% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+  <h3 class="pb-4 text-3xl border-b">Past events</h3>
+  <ul>
+    {% for event in past_events %}
+    <li>
+      <img src="{{ event.image_url }}" />
+      <h4>
+        <a href="/events/{{ event.id }}">{{ event.name }}</a>
+      </h4>
+      <p>Date: {{ event.f_date }}</p>
+      <p>Time: {{ event.f_time }}</p>
+      <p>Location: {{ event.location }}</p>
+      <p>
+        Created by:
+        <a href="/members/{{ event.creator.id }}">{{ event.creator.name }}</a>
+      </p>
+      {% if session.user and session.user.is_admin %}
+      <a href="/events/edit/{{ event.id }}">Edit</a>
+      <a href="/events/delete/{{ event.id }}">Delete</a>
+      {% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+</section>
 
 {% endblock %}
