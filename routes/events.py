@@ -7,11 +7,11 @@ events_bp = Blueprint("events", __name__, url_prefix="/events")
 @events_bp.get("/")
 def events_list():
     public_events = Event.get_all_public()
-    return render_template("events.html.jinja", events=public_events, title="Events")
+    return render_template("events.html.jinja", events=public_events)
 
 
 @events_bp.get("/<int:event_id>")
-@require_public_event
+@require_public_event  # TODO: create private event and test
 def event_detail(event_id=None):
     event = Event.get(event_id)
     return render_template("event_detail.html.jinja", event=event, title=event.name)

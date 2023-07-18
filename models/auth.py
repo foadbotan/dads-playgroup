@@ -14,6 +14,7 @@ def get_logged_in_user():
 def require_login(func):
     def wrapper(*args, **kwargs):
         if not session.get("user"):
+            # TODO: flash message
             return redirect("/login")
         return func(*args, **kwargs)
 
@@ -24,9 +25,10 @@ def require_login(func):
 def require_admin(func):
     @require_login
     def wrapper(*args, **kwargs):
-        if not session.get("user").get("is_admin"):
-            user_id = session.get("user").get("id")
-            return redirect(f"/members/{user_id}")
+        user = get_logged_in_user()
+        if not user.is_admin:
+            # TODO: flash message
+            return redirect(f"/members/{user.id}")
         return func(*args, **kwargs)
 
     wrapper.__name__ = func.__name__
@@ -36,6 +38,7 @@ def require_admin(func):
 def require_guest(func):
     def wrapper(*args, **kwargs):
         if session.get("user"):
+            # TODO: flash message
             return redirect("/")
         return func(*args, **kwargs)
 
@@ -47,7 +50,11 @@ def require_public_event(func):
     def wrapper(*args, **kwargs):
         event_id = kwargs.get("event_id")
         event = Event.get(event_id)
-        if not event.is_public and not session.get("user"):
+        if not event:
+            # TODO: flash message
+            return redirect("/events")
+        elif not event.is_public and not get_logged_in_user():
+            # TODO: flash message
             return redirect("/login")
         return func(*args, **kwargs)
 
