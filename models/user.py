@@ -2,6 +2,8 @@ import bcrypt
 from models.db import db
 from models.event import Event
 
+# TODO: Add roles 'pending_approval', 'member', 'admin', 'super_admin'
+
 
 class User(db.Model):
     __tablename__ = "users"
