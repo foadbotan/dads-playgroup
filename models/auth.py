@@ -46,22 +46,6 @@ def require_guest(func):
     return wrapper
 
 
-def require_public_event(func):
-    def wrapper(*args, **kwargs):
-        event_id = kwargs.get("event_id")
-        event = Event.get(event_id)
-        if not event:
-            # TODO: flash message
-            return redirect("/events")
-        elif not event.is_public and not get_logged_in_user():
-            # TODO: flash message
-            return redirect("/login")
-        return func(*args, **kwargs)
-
-    wrapper.__name__ = func.__name__
-    return wrapper
-
-
 def login(email, password):
     user = User.get(email=email)
     if not user or not user.check_password(password):

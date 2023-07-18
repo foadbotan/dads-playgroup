@@ -7,6 +7,5 @@ from .auth import (
     require_login,
     require_admin,
     require_guest,
-    require_public_event,
     login,
 )

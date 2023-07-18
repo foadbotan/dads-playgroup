@@ -89,6 +89,3 @@ class User(db.Model):
     def get_all(cls):
         return cls.query.all()
 
-    @classmethod
-    def get_all_admins(cls):
-        return cls.query.filter_by(is_admin=True).all()

@@ -27,7 +27,6 @@ def seed_db(db):
         time="9:00:00",
         description="This is the first event",
         location="123 Main St, Springfield, USA",
-        is_public=False,
     )
     event2 = admin1.create_event(
         name="Event 2",

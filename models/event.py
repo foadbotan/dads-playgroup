@@ -1,4 +1,5 @@
 from models.db import db
+from datetime import datetime
 
 
 class Event(db.Model):
@@ -11,7 +12,6 @@ class Event(db.Model):
     description = db.Column(db.Text, nullable=False)
     location = db.Column(db.String(100), nullable=False)
     image_url = db.Column(db.String)
-    is_public = db.Column(db.Boolean, default=True)
     creator_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     creator = db.relationship("User", back_populates="created")
     attendees = db.relationship(
@@ -28,7 +28,6 @@ class Event(db.Model):
         creator,
         attendees=[],
         image_url=None,
-        is_public=True,
     ):
         self.name = name
         self.date = date
@@ -38,7 +37,6 @@ class Event(db.Model):
         self.creator = creator
         self.attendees = attendees + [creator]
         self.image_url = image_url
-        self.is_public = is_public
 
         db.session.add(self)
         db.session.commit()
@@ -56,9 +54,13 @@ class Event(db.Model):
         db.session.delete(self)
         db.session.commit()
 
+    def is_upcoming(self):
+        return self.date > datetime.now().date()
+
+
     @property
     def f_date(self):
-        return self.date.strftime("%a, %d %b")
+        return self.date.strftime("%a, %d %b %Y")
 
     @property
     def f_time(self):
@@ -72,22 +74,22 @@ class Event(db.Model):
             "description": self.description,
             "location": self.location,
             "image_url": self.image_url,
-            "is_public": self.is_public,
             "creator_id": self.creator_id,
             "attendees": [attendee.to_dict() for attendee in self.attendees],
         }
 
     def __repr__(self):
-        return f"<Event id={self.id} name={self.name} date={self.date} time={self.time} description={self.description} location={self.location} image_url={self.image_url} is_public={self.is_public} creator_id={self.creator_id} attendees={len(self.attendees)}>"
+        return f"<Event id={self.id} name={self.name} date={self.date} time={self.time} description={self.description} location={self.location} image_url={self.image_url} creator_id={self.creator_id} attendees={len(self.attendees)}>"
 
     @classmethod
     def get(cls, id):
         return cls.query.get(id)
 
-    @classmethod
-    def get_all(cls):
-        return cls.query.all()
 
     @classmethod
-    def get_all_public(cls):
-        return cls.query.filter_by(is_public=True).all()
+    def upcoming_events(cls):
+        return cls.query.filter(cls.date > datetime.now().date()).order_by(cls.date).all()
+
+    @classmethod
+    def past_events(cls):
+        return cls.query.filter(cls.date < datetime.now().date()).order_by(cls.date.desc()).limit(3).all()
