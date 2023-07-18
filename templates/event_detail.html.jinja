@@ -10,18 +10,20 @@
     <p>Time: {{ event.f_time }}</p>
     <p>Location: {{ event.location }}</p>
     <p>Description: {{ event.description }}</p>
-    <p>Attending:</p>
-    <ul>
-        {% for attendee in event.attendees %}
-            <li><a href="/members/{{ attendee.id }}">{{ attendee.name }}</a></li>
-        {% endfor %}
-    </ul>
-    {% if button_text %}
-        <form method="POST">
-            <input type="submit" value="{{ button_text }}">
-        </form>
-    {% elif session.user and session.user.is_admin %}
-        <a href="/events/edit/{{ event.id }}">Edit</a>
-        <a href="/events/delete/{{ event.id }}">Delete</a>
+    {% if session.user %}
+        <p>Attending:</p>
+        <ul>
+            {% for attendee in event.attendees %}
+                <li><a href="/members/{{ attendee.id }}">{{ attendee.name }}</a></li>
+            {% endfor %}
+        </ul>
+        {% if button_text %}
+            <form method="POST">
+                <input type="submit" value="{{ button_text }}">
+            </form>
+        {% elif session.user.is_admin %}
+            <a href="/events/edit/{{ event.id }}">Edit</a>
+            <a href="/events/delete/{{ event.id }}">Delete</a>
+        {% endif %}
     {% endif %}
 {% endblock %}
