@@ -1,58 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://kit.fontawesome.com/a68fe6556b.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/output.css') }}">
-
-    <title>
-        Dad's Playgroup {% block title %}{% endblock %}
-    </title>
-</head>
-<body>
-    <header>
-        <h3>Dad's Playgroup</h3>
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Contact</a></li>
-                <li><a href="/#events">Events</a></li>
-                {% if session.user %}
-                    <li><a href="/members">Members</a></li>
-                {% endif %}
-            </ul>
-            <div>
-                {% if session.user %}
-                    <p>
-                        Logged in as
-                        <a href="/members/{{ session.user.id }}">{{ session.user.name }}</a>
-                    </p>
-                    <a href="/logout" class="btn">Logout</a>
-                {% else %}
-                    <a href="/login" class="btn">Login</a>
-                    <a href="/signup" class="btn">Sign up</a>
-                {% endif %}
-            </div>
-        </nav>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://kit.fontawesome.com/a68fe6556b.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/output.css') }}"
+    />
+    <title>Dad's Playgroup {% block title %}{% endblock %}</title>
+  </head>
+  <body class="container mx-auto">
+    <header class="border-b">
+      <nav class="flex items-center gap-6 py-6">
+        <a href="/" class="mr-auto text-xl font-semibold text-red-600 uppercase"
+          >Dad's Playgroup</a
+        >
+        <ul class="flex gap-6">
+          <li>
+            <a href="/#events">Events</a>
+          </li>
+          {% if session.user %}
+          <li>
+            <a href="/members">Members</a>
+          </li>
+          {% endif %}
+        </ul>
+        <div class="flex items-center gap-6">
+          {% if session.user %}
+          <a href="/members/{{ session.user.id }}">
+            {{ session.user.name }}
+          </a>
+          <a href="/logout" class="px-4 py-1 border border-gray-500 rounded-md"
+            >Logout</a
+          >
+          {% else %}
+          <a href="/login" class="px-4 py-1 border border-gray-500 rounded-md"
+            >Login</a
+          >
+          <a href="/signup" class="px-4 py-1 border border-gray-500 rounded-md"
+            >Sign up</a
+          >
+          {% endif %}
+        </div>
+      </nav>
     </header>
-    <main>
-        {% block content %}{% endblock %}
-    </main>
+    <main>{% block content %}{% endblock %}</main>
     <footer>
-        <small>&copy; Dad's Playgroup 2023</small>
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Contact</a></li>
-                <li><a href="/events">Events</a></li>
-                {% if session.user %}
-                    <li><a href="/members">Members</a></li>
-                {% endif %}
-            </ul>
-        </nav>
+      <small>&copy; Dad's Playgroup 2023</small>
+      <nav>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="/events">Events</a></li>
+          {% if session.user %}
+          <li><a href="/members">Members</a></li>
+          {% endif %}
+        </ul>
+      </nav>
     </footer>
-</body>
+  </body>
 </html>
