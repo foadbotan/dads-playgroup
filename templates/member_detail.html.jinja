@@ -22,4 +22,7 @@
             {% endfor %}
         </ul>
     {% endif %}
+    {% if session.user.is_admin %}
+        <a href="/members/edit/{{ member.id }}">Edit</a>
+    {% endif %}
 {% endblock %}

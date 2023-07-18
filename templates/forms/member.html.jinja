@@ -1,0 +1,23 @@
+{% extends "base.html.jinja" %}
+
+{% block title %}
+   - {{ title }}
+{% endblock %}
+
+{% block content %}
+    <h1>{{ title }}</h1>
+    <form method="POST">
+        <p>
+            <label for="name">Name:</label>
+            <input type="text" value="{{ member.name }}" id="name" name="name" required>
+        <p>
+            <label for="email">Email:</label>
+            <input type="text" value="{{ member.email }}" id="email" name="email" required>
+        </p>
+        <p>
+            <label for="time">Is an Admin</label>
+            <input type="checkbox" value="{{ member.is_admin }}" id="is_admin" name="is_admin">
+        </p>
+        <button type="submit">{{ button_text }}</button>
+    </form>
+{% endblock %}

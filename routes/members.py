@@ -23,3 +23,33 @@ def member_detail(member_id=None):
         # TODO: flash message
         return redirect("/members")
     return render_template("member_detail.html.jinja", member=user)
+
+
+@members_bp.get("/edit/<int:member_id>")
+@require_admin
+def member_edit_form(member_id=None):
+    member = User.get(id=member_id)
+    if not member:
+        # TODO: flash message
+        return redirect("/members")
+    return render_template(
+        "forms/member.html.jinja",
+        member=member,
+        title="Edit Member",
+        button_text="Update",
+    )
+
+
+@members_bp.post("/edit/<int:member_id>")
+@require_admin
+def member_edit_action(member_id=None):
+    member = User.get(id=member_id)
+    if not member:
+        # TODO: flash message
+        return redirect("/members")
+    member.update(
+        name=request.form["name"],
+        email=request.form["email"],
+        is_admin=request.form.get("is_admin"),
+    )
+    return redirect(f"/members/{member_id}")
