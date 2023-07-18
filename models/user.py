@@ -18,12 +18,11 @@ class User(db.Model):
     )
     created = db.relationship("Event", back_populates="creator")
 
-    def __init__(self, **kwargs):
-        for key, value in kwargs.items():
-            if key == "password":
-                key = "password_hash"
-                value = bcrypt.hashpw(value.encode(), bcrypt.gensalt()).decode()
-            setattr(self, key, value)
+    def __init__(self, name, email, password, is_admin=False):
+        self.name = name
+        self.email = email
+        self.password_hash = User.hash_password(password)
+        self.is_admin = is_admin
 
         db.session.add(self)
         db.session.commit()
@@ -67,6 +66,10 @@ class User(db.Model):
         db.session.add(event)
         db.session.commit()
         return event
+
+    @staticmethod
+    def hash_password(password):
+        return bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
 
     @classmethod
     def authenticate(cls, email, password):
