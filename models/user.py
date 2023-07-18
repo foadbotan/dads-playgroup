@@ -31,6 +31,9 @@ class User(db.Model):
 
     def update(self, **kwargs):
         for key, value in kwargs.items():
+            if key not in User.__table__.columns:
+                # TODO: check if this works
+                raise Exception(f"Invalid key '{key}'")
             if key == "new_password":
                 old_password = kwargs.get("old_password")
                 if not old_password or not self.check_password(old_password):

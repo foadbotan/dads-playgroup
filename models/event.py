@@ -47,6 +47,8 @@ class Event(db.Model):
 
     def update(self, **kwargs):
         for key, value in kwargs.items():
+            if key not in Event.__table__.columns:
+                raise Exception(f"Invalid key '{key}'")
             setattr(self, key, value)
         db.session.commit()
 

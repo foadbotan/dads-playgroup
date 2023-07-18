@@ -34,6 +34,6 @@ if __name__ == "__main__":
 
     app = create_app()
     # with app.app_context():
-    # seed_db(db)
+    #     seed_db(db)
 
     app.run(debug=True)
