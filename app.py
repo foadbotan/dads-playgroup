@@ -1,7 +1,7 @@
 from flask import Flask, render_template
 import os
 from dotenv import load_dotenv
-from models import db
+from models import db, Event
 from routes import events, members, auth
 
 
@@ -21,9 +21,14 @@ def create_app():
     app.register_blueprint(members.members_bp)
     app.register_blueprint(auth.auth_bp)
 
+    @app.route("/events/")
     @app.route("/")
     def index():
-        return render_template("index.html.jinja")
+        upcoming_events = Event.upcoming_events()
+        past_events = Event.past_events()
+
+        return render_template("index.html.jinja", upcoming_events=upcoming_events, past_events=past_events)
+
 
     return app
 

@@ -4,7 +4,7 @@
     <h1>Welcome to Dad's Playgroup!</h1>
     <p>A Place for Fathers and Children to Bond and Thrive</p>
 
-    <h3>Connect with Fellow Dads and Create Lasting Memories</h3>
+    <h4>Connect with Fellow Dads and Create Lasting Memories</h4>
     <p>Join Dad's Playgroup, a supportive community built exclusively for fathers. Whether you're new to fatherhood or a seasoned dad, our playgroup offers a space for dads to connect, share experiences, and participate in fun activities with their little ones.</p>
     <div>
         <div>
@@ -20,4 +20,46 @@
             <p>At Dad's Playgroup, we believe that every dad possesses unique qualities and strengths. We aim to empower fathers by providing resources, expert guidance, and a network of passionate dads who want to be the best role models for their children. Celebrate the joys of fatherhood and grow together as a community.</p>
         </div>
     </div>
+    <section id="events">
+        <h2>Events</h2>
+        {% if session.user and session.user.is_admin %}
+            <a href="/events/create">Create event</a>
+        {% endif %}
+        <h3>Upcoming events</h3>
+        <ul>
+            {% for event in upcoming_events %}
+                <li>
+                    <img src="{{ event.image_url }}">
+                    <h4><a href="/events/{{ event.id }}">{{ event.name }}</a></h4>
+                    <p>Date: {{ event.f_date }}</p>
+                    <p>Time: {{ event.f_time }}</p>
+                    <p>Location: {{ event.location }}</p>
+                    <p>Created by: <a href="/members/{{ event.creator.id }}">{{ event.creator.name }}</a></p>
+                    {% if session.user and session.user.is_admin %}
+                        <a href="/events/edit/{{ event.id }}">Edit</a>
+                        <a href="/events/delete/{{ event.id }}">Delete</a>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+        <h3>Past events</h3>
+        <ul>
+            {% for event in past_events %}
+                <li>
+                    <img src="{{ event.image_url }}">
+                    <h4><a href="/events/{{ event.id }}">{{ event.name }}</a></h4>
+                    <p>Date: {{ event.f_date }}</p>
+                    <p>Time: {{ event.f_time }}</p>
+                    <p>Location: {{ event.location }}</p>
+                    <p>Created by: <a href="/members/{{ event.creator.id }}">{{ event.creator.name }}</a></p>
+                    {% if session.user and session.user.is_admin %}
+                        <a href="/events/edit/{{ event.id }}">Edit</a>
+                        <a href="/events/delete/{{ event.id }}">Delete</a>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    </section>
+
+
 {% endblock %}

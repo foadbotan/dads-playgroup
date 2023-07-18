@@ -1,20 +1,17 @@
 from flask import Blueprint, render_template, request, redirect, session
-from models import Event, User, require_admin, require_public_event, get_logged_in_user
+from models import Event, User, require_admin, get_logged_in_user
 
 events_bp = Blueprint("events", __name__, url_prefix="/events")
 
 
-@events_bp.get("/")
-def events_list():
-    public_events = Event.get_all_public()
-    return render_template("events.html.jinja", events=public_events)
-
 
 @events_bp.get("/<int:event_id>")
-@require_public_event  # TODO: create private event and test
 def event_detail(event_id=None):
     event = Event.get(event_id)
-    return render_template("event_detail.html.jinja", event=event, title=event.name)
+    if not event:
+        # TODO: flash message
+        return redirect("/events")
+    return render_template("event.html.jinja", event=event, title=event.name)
 
 
 @events_bp.get("/create")
