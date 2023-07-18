@@ -13,7 +13,7 @@ def events_list():
 @events_bp.get("/<int:event_id>")
 @require_public_event
 def event_detail(event_id=None):
-    event = Event.get_by_id(event_id)
+    event = Event.get(event_id)
     return render_template("event_detail.html.jinja", event=event, title=event.name)
 
 
@@ -39,7 +39,7 @@ def event_create_action():
 @events_bp.get("/edit/<int:event_id>")
 @require_admin
 def event_edit_form(event_id=None):
-    event = Event.get_by_id(event_id)
+    event = Event.get(event_id)
     return render_template(
         "forms/event.html.jinja",
         event=event,
@@ -51,7 +51,7 @@ def event_edit_form(event_id=None):
 @events_bp.post("/edit/<int:event_id>")
 @require_admin
 def event_edit_action(event_id=None):
-    event = Event.get_by_id(event_id)
+    event = Event.get(event_id)
     event.update(**request.form)
     return redirect(f"/events/{event.id}")
 
@@ -59,7 +59,7 @@ def event_edit_action(event_id=None):
 @events_bp.get("/delete/<int:event_id>")
 @require_admin
 def event_delete_form(event_id=None):
-    event = Event.get_by_id(event_id)
+    event = Event.get(event_id)
     return render_template(
         "event_detail.html.jinja",
         event=event,
@@ -71,6 +71,6 @@ def event_delete_form(event_id=None):
 @events_bp.post("/delete/<int:event_id>")
 @require_admin
 def event_delete_action(event_id=None):
-    event = Event.get_by_id(event_id)
+    event = Event.get(event_id)
     event.delete()
     return redirect("/events")

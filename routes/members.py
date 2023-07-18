@@ -4,9 +4,8 @@ from models import User, Event, require_login, require_guest
 members_bp = Blueprint("members", __name__, url_prefix="/members")
 
 
-# Protects all /members endpoints with require_login
 @members_bp.before_request
-@require_login
+@require_login  # Protects all /members endpoints with require_login
 def before_request():
     pass
 
@@ -19,5 +18,5 @@ def members_list():
 
 @members_bp.get("/<int:member_id>")
 def member_detail(member_id=None):
-    member = User.get_by_id(member_id)
+    member = User.get(id=member_id)
     return render_template("member_detail.html.jinja", member=member)

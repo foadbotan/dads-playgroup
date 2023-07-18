@@ -74,12 +74,8 @@ class User(db.Model):
         return False
 
     @classmethod
-    def get_by_id(cls, id):
-        return cls.query.get(id)
-
-    @classmethod
-    def get_by_email(cls, email):
-        return cls.query.filter_by(email=email).first()
+    def get(cls, **kwargs):
+        return cls.query.filter_by(**kwargs).first()
 
     @classmethod
     def get_all(cls):

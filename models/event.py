@@ -79,7 +79,7 @@ class Event(db.Model):
         return f"<Event id={self.id} name={self.name} date={self.date} time={self.time} description={self.description} location={self.location} image_url={self.image_url} is_public={self.is_public} creator_id={self.creator_id} attendees={len(self.attendees)}>"
 
     @classmethod
-    def get_by_id(cls, id):
+    def get(cls, id):
         return cls.query.get(id)
 
     @classmethod

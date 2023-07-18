@@ -7,7 +7,7 @@ def get_logged_in_user():
     if not session.get("user"):
         return None
     user_id = session.get("user").get("id")
-    user = User.get_by_id(user_id)
+    user = User.get(id=user_id)
     return user
 
 
@@ -46,7 +46,7 @@ def require_guest(func):
 def require_public_event(func):
     def wrapper(*args, **kwargs):
         event_id = kwargs.get("event_id")
-        event = Event.get_by_id(event_id)
+        event = Event.get(event_id)
         if not event.is_public and not session.get("user"):
             return redirect("/login")
         return func(*args, **kwargs)
