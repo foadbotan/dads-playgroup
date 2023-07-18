@@ -13,9 +13,9 @@
     />
     <title>Dad's Playgroup {% block title %}{% endblock %}</title>
   </head>
-  <body class="container mx-auto">
-    <header class="border-b">
-      <nav class="flex items-center gap-6 py-6">
+  <body class="bg-neutral-100">
+    <header class="bg-white border-b">
+      <nav class="container flex items-center gap-6 py-6 mx-auto">
         <a href="/" class="mr-auto text-xl font-semibold text-red-600 uppercase"
           >Dad's Playgroup</a
         >
@@ -34,14 +34,14 @@
           <a href="/members/{{ session.user.id }}">
             {{ session.user.name }}
           </a>
-          <a href="/logout" class="px-4 py-1 border border-gray-500 rounded-md"
+          <a href="/logout" class="block px-4 py-2 font-medium text-gray-700 border rounded-md shadow-sm"
             >Logout</a
           >
           {% else %}
-          <a href="/login" class="px-4 py-1 border border-gray-500 rounded-md"
+          <a href="/login" class="block px-4 py-2 font-medium text-gray-700 border rounded-md shadow-sm"
             >Login</a
           >
-          <a href="/signup" class="px-4 py-1 border border-gray-500 rounded-md"
+          <a href="/signup" class="block px-4 py-2 font-medium text-gray-700 border rounded-md shadow-sm"
             >Sign up</a
           >
           {% endif %}
@@ -50,7 +50,7 @@
     </header>
     <main>{% block content %}{% endblock %}</main>
     <footer
-      class="flex items-center justify-between py-6 mt-10 text-sm text-gray-600 border-t"
+      class="container flex items-center justify-between py-6 mx-auto mt-10 text-sm text-gray-600 border-t"
     >
       <p>&copy; Dad's Playgroup 2023</p>
       <nav>
