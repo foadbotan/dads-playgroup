@@ -62,8 +62,7 @@ class Event(db.Model):
             end=self.datetime + timedelta(hours=2),
             description=self.description,
             location=self.location,
-            # TODO: link to event page
-            # url=f"http://127.0.0.1:5000/events/{self.id}",
+            url=f"https://dads-playgroup.onrender.com/events/{self.id}",
         )
         cal.events.add(event)
         return cal
