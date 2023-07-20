@@ -6,11 +6,13 @@ click
 Flask
 Flask-SQLAlchemy
 greenlet
+gunicorn
 ics
 install
 itsdangerous
 Jinja2
 MarkupSafe
+packaging
 psycopg2
 python-dateutil
 python-dotenv
