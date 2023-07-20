@@ -36,7 +36,7 @@ def create_app():
 
 if __name__ == "__main__":
     # TODO: remove this
-    from seed_db import seed_db
+    # from seed_db import seed_db
 
     app = create_app()
     # with app.app_context():
