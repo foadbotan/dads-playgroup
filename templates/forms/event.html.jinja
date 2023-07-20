@@ -12,11 +12,11 @@
             <input type="text" value="{{ event.name }}" id="name" name="name" required>
         <p>
             <label for="date">Date:</label>
-            <input type="date" value="{{ event.date }}" id="date" name="date" required>
+            <input type="date" value="{{ event.datetime.date() if event.datetime else '' }}" id="date" name="date" required>
         </p>
         <p>
             <label for="time">Time:</label>
-            <input type="time" value="{{ event.time }}" id="time" name="time" required>
+            <input type="time" value="{{ event.datetime.time() if event.datetime else '' }}" id="time" name="time" required>
         </p>
         <p>
             <label for="location">Location:</label>

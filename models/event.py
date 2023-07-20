@@ -1,5 +1,7 @@
 from models.db import db
-from datetime import datetime
+from datetime import datetime, timedelta
+import arrow
+from ics import Calendar, Event as IcsEvent
 
 
 class Event(db.Model):
@@ -7,8 +9,7 @@ class Event(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
-    date = db.Column(db.Date, nullable=False)
-    time = db.Column(db.Time, nullable=False)
+    datetime = db.Column(db.DateTime, nullable=False)
     description = db.Column(db.Text, nullable=False)
     location = db.Column(db.String(100), nullable=False)
     image_url = db.Column(db.String)
@@ -30,8 +31,7 @@ class Event(db.Model):
         image_url=None,
     ):
         self.name = name
-        self.date = date
-        self.time = time
+        self.datetime = f"{date} {time}"
         self.description = description
         self.location = location
         self.creator = creator
@@ -54,22 +54,46 @@ class Event(db.Model):
         db.session.delete(self)
         db.session.commit()
 
-    def is_upcoming(self):
-        return self.date > datetime.now().date()
+    def to_ical(self):
+        cal = Calendar()
+        event = IcsEvent(
+            name=self.name,
+            begin=self.datetime,
+            end=self.datetime + timedelta(hours=2),
+            description=self.description,
+            location=self.location,
+            # TODO: link to event page
+            # url=f"http://127.0.0.1:5000/events/{self.id}",
+        )
+        cal.events.add(event)
+        return cal
+
+    def relative_date(self):
+        return arrow.get(self.datetime).humanize()
+
+    def attendee_ids(self):
+        return [attendee.id for attendee in self.attendees]
+
+    def rsvp(self, user):
+        if user in self.attendees:
+            self.attendees.remove(user)
+        else:
+            self.attendees.append(user)
+        db.session.commit()
 
     @property
-    def f_date(self):
-        return self.date.strftime("%a, %d %b %Y")
+    def date(self):
+        return self.datetime.strftime("%a, %d %b")
 
     @property
-    def f_time(self):
-        return self.time.strftime("%H:%M")
+    def time(self):
+        return self.datetime.strftime("%H:%M")
 
     def to_dict(self):
         return {
             "id": self.id,
             "name": self.name,
-            "datetime": self.datetime.strftime("%Y-%m-%d %H:%M:%S"),
+            "datetime": self.datetime,
             "description": self.description,
             "location": self.location,
             "image_url": self.image_url,
@@ -78,7 +102,7 @@ class Event(db.Model):
         }
 
     def __repr__(self):
-        return f"<Event id={self.id} name={self.name} date={self.date} time={self.time} description={self.description} location={self.location} image_url={self.image_url} creator_id={self.creator_id} attendees={len(self.attendees)}>"
+        return f"<Event id={self.id} name={self.name} datetime={datetime} description={self.description} location={self.location} image_url={self.image_url} creator_id={self.creator_id} attendees={len(self.attendees)}>"
 
     @classmethod
     def get(cls, id):
@@ -87,14 +111,14 @@ class Event(db.Model):
     @classmethod
     def upcoming_events(cls):
         return (
-            cls.query.filter(cls.date > datetime.now().date()).order_by(cls.date).all()
+            cls.query.filter(cls.datetime > datetime.now()).order_by(cls.datetime).all()
         )
 
     @classmethod
     def past_events(cls):
         return (
-            cls.query.filter(cls.date < datetime.now().date())
-            .order_by(cls.date.desc())
+            cls.query.filter(cls.datetime < datetime.now())
+            .order_by(cls.datetime.desc())
             .limit(3)
             .all()
         )

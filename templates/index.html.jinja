@@ -44,10 +44,11 @@
           />
         </div>
         <div class="flex flex-col">
-          <p class="text-sm font-semibold text-red-600 uppercase">
-            {{ event.f_date }}
-            @
-            {{ event.f_time }}
+          <p class="text-sm uppercase tracking-wider">
+            <span class="text-red-500 font-bold">{{
+              event.relative_date()
+            }}</span>
+            — {{ event.date }} @ {{ event.time }}
           </p>
           <a
             href="/events/{{ event.id }}"
@@ -63,20 +64,37 @@
           </p>
           <div class="flex gap-2 mt-auto">
             <a
-              href="#"
+              href="/events/download/{{ event.id }}"
               class="block px-6 py-2 font-medium text-white rounded-md bg-slate-500"
             >
               <i class="mr-2 fas fa-calendar-plus"></i>
-              Attend
+              Add to calendar
             </a>
+            {% if session.user and session.user.id in event.attendee_ids() %}
             <a
-              href="#"
+              href="/events/rsvp/{{ event.id }}"
+              class="block px-6 py-2 font-medium text-green-800 rounded-md border border-green-400 bg-green-200"
+            >
+              <i class="mr-2 fa fa-check"></i>
+              Going
+            </a>
+            {% elif session.user %}
+            <a
+              href="/events/rsvp/{{ event.id }}"
               class="block px-6 py-2 font-medium text-slate-700 border rounded-md shadow border-neutral-300"
             >
-              <i class="mr-2 fas fa-share"></i>
-              Share
+              <i class="mr-2 fa fa-plus"></i>
+              RSVP
             </a>
-            {% if session.user and session.user.is_admin %}
+            {% else %}
+            <a
+              href="/signup"
+              class="block px-6 py-2 font-medium text-slate-700 border rounded-md shadow border-neutral-300"
+            >
+              <i class="mr-2 fa fa-plus"></i>
+              RSVP
+            </a>
+            {% endif %} {% if session.user and session.user.is_admin %}
             <a
               href="/events/edit/{{ event.id }}"
               class="block px-6 py-2 font-medium text-slate-700 border rounded-md shadow border-neutral-300"
@@ -112,10 +130,8 @@
           />
         </div>
         <div class="flex flex-col">
-          <p class="text-sm font-semibold text-red-600 uppercase">
-            {{ event.f_date }}
-            @
-            {{ event.f_time }}
+          <p class="text-sm uppercase tracking-wider">
+            {{ event.date }} {{ event.datetime.date().year }} @ {{ event.time }}
           </p>
           <a
             href="/events/{{ event.id }}"

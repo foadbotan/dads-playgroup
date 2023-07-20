@@ -39,7 +39,7 @@ if __name__ == "__main__":
     from seed_db import seed_db
 
     app = create_app()
-    with app.app_context():
-        seed_db(db)
+    # with app.app_context():
+    #     seed_db(db)
 
     app.run(debug=True)

@@ -7,8 +7,9 @@
 {% block content %}
     <h1>{{ title }}</h1>
     <img src="{{ event.image_url }}" >
-    <p>Date: {{ event.f_date }}</p>
-    <p>Time: {{ event.f_time }}</p>
+    <p>{{ event.relative_date() }}</p>
+    <p>Date: {{ event.date }}</p>
+    <p>Time: {{ event.time }}</p>
     <p>Location: {{ event.location }}</p>
     <p>Description: {{ event.description }}</p>
     {% if session.user %}
