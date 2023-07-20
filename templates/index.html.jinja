@@ -1,129 +1,94 @@
 {% extends "base.html.jinja" %} {% block content %}
-<div class="relative p-[15vw] text-center text-white">
-  <h1 class="text-5xl font-black">Welcome to Dad's Playgroup!</h1>
-  <p class="mt-2 text-xl">
+<section
+  class="relative p-[15vw] text-center text-white -mb-20 pointer-events-none"
+>
+  <p class="mt-2 text-white text-opacity-80">
     A Place for Fathers and Children to Bond and Thrive
   </p>
-
+  <h1 class="text-5xl font-black tracking-tight">
+    Welcome to Dad's Playgroup!
+  </h1>
+  <p class="max-w-xl mx-auto text-white text-opacity-80 mt-6 text-lg">
+    Whether you're new to fatherhood or a seasoned dad, our playgroup offers a
+    space for dads to connect, share experiences, and participate in fun
+    activities with their little ones.
+  </p>
   <img
     src="https://images.unsplash.com/photo-1517554558809-9b4971b38f39?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
     class="absolute inset-0 object-cover w-full h-full -z-10 brightness-50"
   />
-</div>
-
-<section class="container mx-auto">
-  <div class="mt-20">
-    <h4 class="text-xl font-medium text-gray-900">
-      Connect with Fellow Dads and Create Lasting Memories
-    </h4>
-    <p class="max-w-xl mt-2 text-gray-600">
-      Join Dad's Playgroup, a supportive community built exclusively for
-      fathers. Whether you're new to fatherhood or a seasoned dad, our playgroup
-      offers a space for dads to connect, share experiences, and participate in
-      fun activities with their little ones.
-    </p>
-  </div>
-  <div class="flex gap-4 mt-10">
-    <div>
-      <h4 class="text-lg font-medium text-gray-900">A Place to Bond and Learn</h4>
-      <p class="mt-2 text-gray-600">
-        At Dad's Playgroup, we believe in the power of father-child bonding.
-        Engage in interactive workshops, guided play sessions, and educational
-        classes designed to enhance your parenting skills while having a blast
-        with your kids. From messy arts and crafts to outdoor adventures, we
-        provide a variety of activities tailored to different age groups.
-      </p>
-    </div>
-    <div>
-      <h4 class="text-lg font-medium text-gray-900">Share Stories and Wisdom</h4>
-      <p class="mt-2 text-gray-600">
-        Connect with other dads who understand the joys and challenges of
-        raising children. Our online forum is the perfect platform to share your
-        parenting stories, seek advice, and learn from a supportive community of
-        like-minded fathers. Build long-lasting friendships while gaining
-        valuable insights into fatherhood.
-      </p>
-    </div>
-    <div>
-      <h4 class="text-lg font-medium text-gray-900">Empowering Dads Everywhere</h4>
-      <p class="mt-2 text-gray-600">
-        At Dad's Playgroup, we believe that every dad possesses unique qualities
-        and strengths. We aim to empower fathers by providing resources, expert
-        guidance, and a network of passionate dads who want to be the best role
-        models for their children. Celebrate the joys of fatherhood and grow
-        together as a community.
-      </p>
-    </div>
-  </div>
 </section>
 
-<section id="events" class="max-w-4xl mx-auto mt-32 space-y-6">
-  <div class="p-10 bg-white border shadow-lg border-slate-200 rounded-xl">
+<section id="events" class="max-w-4xl mx-auto space-y-6">
+  <div class="p-10 bg-white border shadow-lg border-neutral-300 rounded-xl">
     <div class="flex items-center justify-between">
       <h3 class="text-2xl font-medium">Upcoming events</h3>
+
       {% if session.user and session.user.is_admin %}
       <a
         href="/events/create"
-        class="px-4 py-2 font-medium tracking-wider text-white bg-green-600 rounded-md"
+        class="px-6 py-2 font-medium tracking-wider text-white bg-slate-500 rounded-md"
       >
-        <i class="mr-1 fas fa-plus"></i>
+        <i class="mr-2 fas fa-plus"></i>
         Create event
       </a>
       {% endif %}
     </div>
-    <ul class="mt-4 divide-y-2">
+    <ul class="mt-4 divide-y">
       {% for event in upcoming_events %}
       <li class="flex gap-4 py-6">
-        <div class="w-1/5 overflow-hidden rounded-md aspect-square">
+        <div class="w-36 h-36 bg-slate-300 overflow-hidden rounded-md">
           <img
-            src="https://placehold.co/50"
+            src="{{ event.image_url }}"
             class="block object-cover w-full h-full"
           />
         </div>
-        <div class="flex flex-col justify-between gap-4">
+        <div class="flex flex-col">
           <p class="text-sm font-semibold text-red-600 uppercase">
             {{ event.f_date }}
             @
             {{ event.f_time }}
           </p>
-          <a href="/events/{{ event.id }}" class="text-2xl font-medium">{{
-            event.name
-          }}</a>
-          <p>
-            <i class="mr-2 fas fa-user"></i>
-            <span class="font-light text-gray-700">Created by</span>
-            <a href="/members/{{ event.creator.id }}">{{
+          <a
+            href="/events/{{ event.id }}"
+            class="text-2xl font-medium hover:underline"
+            >{{ event.name }}</a
+          >
+          <p class="flex items-center gap-1 mt-2">
+            <i class="mr-1 fas fa-user-circle text-2xl leading-4"></i>
+            <span class="font-light text-slate-700 text-sm">Created by</span>
+            <a href="/members/{{ event.creator.id }}" class="hover:underline">{{
               event.creator.name
             }}</a>
           </p>
-          <div class="flex gap-2">
+          <div class="flex gap-2 mt-auto">
             <a
               href="#"
-              class="block px-4 py-2 font-medium text-gray-700 rounded-md bg-neutral-200"
+              class="block px-6 py-2 font-medium text-white rounded-md bg-slate-500"
             >
-              <i class="mr-1 fas fa-check"></i>
+              <i class="mr-2 fas fa-calendar-plus"></i>
               Attend
             </a>
             <a
               href="#"
-              class="block px-4 py-2 font-medium text-gray-700 border rounded-md shadow-sm"
+              class="block px-6 py-2 font-medium text-slate-700 border rounded-md shadow border-neutral-300"
             >
-              <i class="mr-1 fas fa-share"></i>
+              <i class="mr-2 fas fa-share"></i>
               Share
             </a>
             {% if session.user and session.user.is_admin %}
             <a
               href="/events/edit/{{ event.id }}"
-              class="block px-4 py-2 font-medium text-gray-700 border rounded-md shadow-sm"
+              class="block px-6 py-2 font-medium text-slate-700 border rounded-md shadow border-neutral-300"
             >
-              <i class="mr-1 fas fa-edit"></i>
+              <i class="mr-2 fas fa-edit"></i>
               Edit
             </a>
             <a
               href="/events/delete/{{ event.id }}"
-              class="block px-4 py-2 font-medium text-gray-700 border rounded-md shadow-sm"
+              class="block px-6 py-2 font-medium text-slate-700 border rounded-md shadow border-neutral-300"
             >
-              <i class="mr-1 fas fa-trash"></i>
+              <i class="mr-2 fas fa-trash"></i>
               Delete
             </a>
             {% endif %}
@@ -133,54 +98,56 @@
       {% endfor %}
     </ul>
   </div>
-  <div class="p-10 border shadow-lg bg-neutral-50 border-slate-200 rounded-xl">
+  <div class="p-10 bg-neutral-100 border shadow border-neutral-300 rounded-xl">
     <h3 class="text-2xl font-medium">Past events</h3>
-    <ul class="mt-4 divide-y-2">
+    <ul class="mt-4 divide-y">
       {% for event in past_events %}
       <li class="flex gap-4 py-6">
-        <div class="w-1/5 overflow-hidden rounded-md aspect-square">
+        <div class="w-36 h-36 bg-slate-300 overflow-hidden rounded-md">
           <img
-            src="https://placehold.co/50"
+            src="{{ event.image_url }}"
             class="block object-cover w-full h-full"
           />
         </div>
-        <div class="flex flex-col justify-between gap-4">
+        <div class="flex flex-col">
           <p class="text-sm font-semibold text-red-600 uppercase">
             {{ event.f_date }}
             @
             {{ event.f_time }}
           </p>
-          <a href="/events/{{ event.id }}" class="text-2xl font-medium">{{
-            event.name
-          }}</a>
-          <p>
-            <i class="mr-2 fas fa-user"></i>
-            <span class="font-light text-gray-700">Created by</span>
-            <a href="/members/{{ event.creator.id }}">{{
+          <a
+            href="/events/{{ event.id }}"
+            class="text-2xl font-medium hover:underline"
+            >{{ event.name }}</a
+          >
+          <p class="flex items-center gap-1 mt-2">
+            <i class="mr-1 fas fa-user-circle text-2xl leading-4"></i>
+            <span class="font-light text-slate-700 text-sm">Created by</span>
+            <a href="/members/{{ event.creator.id }}" class="hover:underline">{{
               event.creator.name
             }}</a>
           </p>
-          <div class="flex gap-2">
+          <div class="flex gap-2 mt-auto">
             <a
               href="#"
-              class="block px-4 py-2 font-medium text-gray-700 border rounded-md shadow-sm"
+              class="block px-6 py-2 font-medium text-slate-700 border rounded-md shadow border-neutral-300"
             >
-              <i class="mr-1 fas fa-share"></i>
+              <i class="mr-2 fas fa-share"></i>
               Share
             </a>
             {% if session.user and session.user.is_admin %}
             <a
               href="/events/edit/{{ event.id }}"
-              class="block px-4 py-2 font-medium text-gray-700 border rounded-md shadow-sm"
+              class="block px-6 py-2 font-medium text-slate-700 border rounded-md shadow border-neutral-300"
             >
-              <i class="mr-1 fas fa-edit"></i>
+              <i class="mr-2 fas fa-edit"></i>
               Edit
             </a>
             <a
               href="/events/delete/{{ event.id }}"
-              class="block px-4 py-2 font-medium text-gray-700 border rounded-md shadow-sm"
+              class="block px-6 py-2 font-medium text-slate-700 border rounded-md shadow border-neutral-300"
             >
-              <i class="mr-1 fas fa-trash"></i>
+              <i class="mr-2 fas fa-trash"></i>
               Delete
             </a>
             {% endif %}
@@ -192,4 +159,60 @@
   </div>
 </section>
 
-{% endblock %}
+<section class="bg-slate-500 mt-20 py-20">
+  <div class="container mx-auto">
+    <div class="">
+      <h4 class="text-3xl font-medium text-white">
+        Connect with Fellow Dads and Create Lasting Memories
+      </h4>
+    </div>
+    <div class="flex gap-4 mt-10">
+      <div>
+        <h4 class="text-xl font-medium text-white">
+          A Place to Bond and Learn
+        </h4>
+        <p class="mt-2 text-slate-300">
+          At Dad's Playgroup, we believe in the power of father-child bonding.
+          Engage in interactive workshops, guided play sessions, and educational
+          classes designed to enhance your parenting skills while having a blast
+          with your kids. From messy arts and crafts to outdoor adventures, we
+          provide a variety of activities tailored to different age groups.
+        </p>
+      </div>
+      <div>
+        <h4 class="text-xl font-medium text-white">Share Stories and Wisdom</h4>
+        <p class="mt-2 text-slate-300">
+          Connect with other dads who understand the joys and challenges of
+          raising children. Our online forum is the perfect platform to share
+          your parenting stories, seek advice, and learn from a supportive
+          community of like-minded fathers. Build long-lasting friendships while
+          gaining valuable insights into fatherhood.
+        </p>
+      </div>
+      <div>
+        <h4 class="text-xl font-medium text-white">
+          Empowering Dads Everywhere
+        </h4>
+        <p class="mt-2 text-slate-300">
+          At Dad's Playgroup, we believe that every dad possesses unique
+          qualities and strengths. We aim to empower fathers by providing
+          resources, expert guidance, and a network of passionate dads who want
+          to be the best role models for their children. Celebrate the joys of
+          fatherhood and grow together as a community.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% if not session.user %}
+<section class="py-20 container mx-auto flex flex-col items-center">
+  <h3 class="text-3xl font-bold tracking-tight">Join Dad's Playgroup Today!</h3>
+  <a
+    href="/signup"
+    class="px-6 py-2 block font-medium tracking-wider text-white bg-green-600 rounded-md w-fit mt-10"
+  >
+    Join
+  </a>
+</section>
+{% endif %} {% endblock %}

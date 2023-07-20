@@ -13,52 +13,79 @@
     />
     <title>Dad's Playgroup {% block title %}{% endblock %}</title>
   </head>
-  <body class="bg-neutral-100">
+  <body class="bg-neutral-200 text-slate-700">
     <header class="bg-white border-b">
       <nav class="container flex items-center gap-6 py-6 mx-auto">
-        <a href="/" class="mr-auto text-xl font-semibold text-red-600 uppercase"
-          >Dad's Playgroup</a
-        >
-        <ul class="flex gap-6">
+        <a href="/" class="mr-auto text-xl font-semibold text-red-600">
+          Dad's Playgroup
+        </a>
+        <ul class="flex">
           <li>
-            <a href="/#events">Events</a>
+            <a class="py-2 px-6 hover:bg-slate-100 rounded-md" href="/#events"
+              >Events</a
+            >
           </li>
           {% if session.user %}
           <li>
-            <a href="/members">Members</a>
+            <a class="py-2 px-6 hover:bg-slate-100 rounded-md" href="/members"
+              >Members</a
+            >
+          </li>
+          {% endif %} {% if session.user %}
+          <li>
+            <a
+              class="py-2 px-6 hover:bg-slate-100 rounded-md"
+              href="/members/{{ session.user.id }}"
+            >
+              {{ session.user.name }}
+            </a>
+          </li>
+          <li>
+            <a
+              href="/logout"
+              class="px-6 py-2 ml-4 font-medium text-gray-700 hover:bg-slate-100 border rounded-md shadow border-neutral-300"
+            >
+              Logout
+            </a>
+          </li>
+          {% else %}
+          <li>
+            <a
+              href="/login"
+              class="px-6 py-2 ml-4 font-medium text-gray-700 hover:bg-slate-100 border rounded-md shadow border-neutral-300"
+            >
+              Login
+            </a>
+          </li>
+          <li>
+            <a
+              href="/signup"
+              class="px-6 py-2 ml-4 font-medium text-gray-700 hover:bg-slate-100 border rounded-md shadow border-neutral-300"
+            >
+              Sign up
+            </a>
           </li>
           {% endif %}
         </ul>
-        <div class="flex items-center gap-6">
-          {% if session.user %}
-          <a href="/members/{{ session.user.id }}">
-            {{ session.user.name }}
-          </a>
-          <a href="/logout" class="block px-4 py-2 font-medium text-gray-700 border rounded-md shadow-sm"
-            >Logout</a
-          >
-          {% else %}
-          <a href="/login" class="block px-4 py-2 font-medium text-gray-700 border rounded-md shadow-sm"
-            >Login</a
-          >
-          <a href="/signup" class="block px-4 py-2 font-medium text-gray-700 border rounded-md shadow-sm"
-            >Sign up</a
-          >
-          {% endif %}
-        </div>
       </nav>
     </header>
     <main>{% block content %}{% endblock %}</main>
     <footer
-      class="container flex items-center justify-between py-6 mx-auto mt-10 text-sm text-gray-600 border-t"
+      class="container flex items-center justify-between py-6 mx-auto text-sm text-gray-600 border-t"
     >
       <p>&copy; Dad's Playgroup 2023</p>
       <nav>
-        <ul class="flex gap-4">
-          <li><a href="/">Home</a></li>
-          <li><a href="/events">Events</a></li>
+        <ul class="flex">
+          <li>
+            <a href="/" class="py-2 px-6 hover:bg-slate-100 rounded-md" >Home</a>
+          </li>
+          <li>
+            <a href="/events" class="py-2 px-6 hover:bg-slate-100 rounded-md" >Events</a>
+          </li>
           {% if session.user %}
-          <li><a href="/members">Members</a></li>
+          <li>
+            <a href="/members" class="py-2 px-6 hover:bg-slate-100 rounded-md" >Members</a>
+          </li>
           {% endif %}
         </ul>
       </nav>

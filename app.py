@@ -27,8 +27,9 @@ def create_app():
         upcoming_events = Event.upcoming_events()
         past_events = Event.past_events()
 
-        return render_template("index.html.jinja", upcoming_events=upcoming_events, past_events=past_events)
-
+        return render_template(
+            "index.html.jinja", upcoming_events=upcoming_events, past_events=past_events
+        )
 
     return app
 
@@ -38,7 +39,7 @@ if __name__ == "__main__":
     from seed_db import seed_db
 
     app = create_app()
-    # with app.app_context():
-    #     seed_db(db)
+    with app.app_context():
+        seed_db(db)
 
     app.run(debug=True)

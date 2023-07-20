@@ -57,7 +57,6 @@ class Event(db.Model):
     def is_upcoming(self):
         return self.date > datetime.now().date()
 
-
     @property
     def f_date(self):
         return self.date.strftime("%a, %d %b %Y")
@@ -85,11 +84,17 @@ class Event(db.Model):
     def get(cls, id):
         return cls.query.get(id)
 
-
     @classmethod
     def upcoming_events(cls):
-        return cls.query.filter(cls.date > datetime.now().date()).order_by(cls.date).all()
+        return (
+            cls.query.filter(cls.date > datetime.now().date()).order_by(cls.date).all()
+        )
 
     @classmethod
     def past_events(cls):
-        return cls.query.filter(cls.date < datetime.now().date()).order_by(cls.date.desc()).limit(3).all()
+        return (
+            cls.query.filter(cls.date < datetime.now().date())
+            .order_by(cls.date.desc())
+            .limit(3)
+            .all()
+        )
