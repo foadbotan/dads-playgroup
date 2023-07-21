@@ -98,4 +98,4 @@ def event_rsvp(event_id=None):
     user = get_logged_in_user()
     if event and user:
         event.rsvp(user)
-    return redirect("/#events")
+    return redirect("/events")
