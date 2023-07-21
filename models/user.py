@@ -34,13 +34,6 @@ class User(db.Model):
             if key not in User.__table__.columns:
                 # TODO: check if this works
                 raise Exception(f"Invalid key '{key}'")
-            if key == "new_password":
-                old_password = kwargs.get("old_password")
-                if not old_password or not self.check_password(old_password):
-                    # TODO: check if this works
-                    raise Exception("Incorrect password")
-                key = "password_hash"
-                value = bcrypt.hashpw(value.encode(), bcrypt.gensalt()).decode()
             setattr(self, key, value)
         db.session.commit()
 
@@ -88,4 +81,3 @@ class User(db.Model):
     @classmethod
     def get_all(cls):
         return cls.query.all()
-
