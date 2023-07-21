@@ -5,16 +5,22 @@
 {% endblock %}
 
 {% block content %}
-    <h1>{{ title }}</h1>
-    <form method="POST">
-        <p>
-            <label for="email">Email:</label>
-            <input type="text" id="email" name="email" required>
-        <p>
-            <label for="password">Password:</label>
-            <input type="password"  id="password" name="password" required>
+<form method="POST" class="w-full max-w-xs mx-auto mt-10">
+    <div class="max-w-sm mx-auto bg-white rounded-xl shadow-lg border border-neutral-300 p-10 flex flex-col gap-6">
+        <p class="flex flex-col gap-2">
+            <label for="email">Email</label>
+            <input class="p-2 bg-neutral-200 rounded-md" type="text" id="email" name="email"
+                placeholder="me@example.com" required>
         </p>
-        <p>
-        <button type="submit">{{ button_text }}</button>
-    </form>
+        <p class="flex flex-col gap-2">
+            <label for="password">Password</label>
+            <input class="p-2 bg-neutral-200 rounded-md" type="password" id="password" name="password"
+                placeholder="*******" required>
+        </p>
+        <button type="submit"
+            class="self-end px-6 py-2 mt-4 font-medium text-white rounded-md bg-slate-500 hover:bg-slate-600">
+            {{ button_text }}
+        </button>
+    </div>
+</form>
 {% endblock %}
