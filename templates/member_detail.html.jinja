@@ -5,27 +5,13 @@
 {% endblock %}
 
 {% block content %}
-    <h1>{{ member.name }}</h1>
-
-    {% if member.attending %}
-        <p>Attending:</p>
-        <ul>
-            {% for event in member.attending %}
-            <li><a href="/events/{{ event.id }}">{{ event.name }}</a></li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-
-    {% if member.created %}
-        <p>Created:</p>
-        <ul>
-            {% for event in member.created %}
-            <li><a href="/events/{{ event.id }}">{{ event.name }}</a></li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-
-    {% if session.user.is_admin %}
-        <a href="/members/edit/{{ member.id }}">Edit</a>
-    {% endif %}
+    <div class="container mx-auto">
+        <div class="max-w-sm mx-auto relative bg-white rounded-xl shadow-lg border border-neutral-300 mt-32">
+            <img class="shadow-md flex-none -mt-20 rounded-full bg-neutral-50 mx-auto" width="200" height="200" src="https://i.pravatar.cc/500?u={{ member.id }}">
+            <div class="p-5 flex flex-col items-center">
+                <h1 class="text-xl font-medium">{{ member.name }}</h1>
+                <span class="text-sm text-slate-500 mt-1">{{ member.email }}</span>
+            </div>
+        </div>
+    </div>
 {% endblock %}
