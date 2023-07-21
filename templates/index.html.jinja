@@ -22,7 +22,7 @@
         <div class="flex items-center justify-between">
             <h3 class="text-2xl font-medium">Upcoming events</h3>
             {% if session.user and session.user.is_admin %}
-                <a href="/events/create" class="px-6 py-2 font-medium tracking-wider text-white bg-slate-500 rounded-md hover:bg-slate-600">
+                <a href="/events/create" class="px-4 py-2 font-medium tracking-wider text-white bg-slate-500 rounded-md hover:bg-slate-600">
                     <i class="mr-2 fas fa-plus"></i>
                     Create event
                 </a>
@@ -49,36 +49,36 @@
                         </div>
                         <div class="flex gap-2 mt-2">
                             <a href="/events/download/{{ event.id }}"
-                                class="block px-6 py-2 font-medium text-white rounded-md bg-slate-500 hover:bg-slate-600">
+                                class="block px-4 py-2 font-medium text-white rounded-md bg-slate-500 hover:bg-slate-600">
                                 <i class="mr-2 fas fa-calendar-plus"></i>
                                 Add to calendar
                             </a>
                             {% if session.user and session.user.id in event.attendee_ids() %}
                             <a href="/events/rsvp/{{ event.id }}"
-                                class="block px-6 py-2 font-medium text-green-800 rounded-md border border-green-400 bg-green-200 hover:bg-green-300">
+                                class="block px-4 py-2 font-medium text-green-800 rounded-md border border-green-400 bg-green-200 hover:bg-green-300">
                                 <i class="mr-2 fa fa-check"></i>
                                 Going
                             </a>
                             {% elif session.user %}
                             <a href="/events/rsvp/{{ event.id }}"
-                                class="block px-6 py-2 font-medium text-slate-700 border rounded-md shadow border-neutral-300 hover:bg-neutral-100">
+                                class="block px-4 py-2 font-medium text-slate-700 border rounded-md shadow border-neutral-300 hover:bg-neutral-100">
                                 <i class="mr-2 fa fa-plus"></i>
                                 RSVP
                             </a>
                             {% else %}
                             <a href="/signup"
-                                class="block px-6 py-2 font-medium text-slate-700 border rounded-md shadow border-neutral-300 hover:bg-neutral-100">
+                                class="block px-4 py-2 font-medium text-slate-700 border rounded-md shadow border-neutral-300 hover:bg-neutral-100">
                                 <i class="mr-2 fa fa-plus"></i>
                                 RSVP
                             </a>
                             {% endif %} {% if session.user and session.user.is_admin %}
                             <a href="/events/edit/{{ event.id }}"
-                                class="block px-6 py-2 font-medium text-slate-700 border rounded-md shadow border-neutral-300 hover:bg-neutral-100">
+                                class="block px-4 py-2 font-medium text-slate-700 border rounded-md shadow border-neutral-300 hover:bg-neutral-100">
                                 <i class="mr-2 fas fa-edit"></i>
                                 Edit
                             </a>
                             <a href="/events/delete/{{ event.id }}"
-                                class="block px-6 py-2 font-medium text-slate-700 border rounded-md shadow border-neutral-300 hover:bg-neutral-100">
+                                class="block px-4 py-2 font-medium text-slate-700 border rounded-md shadow border-neutral-300 hover:bg-neutral-100">
                                 <i class="mr-2 fas fa-trash"></i>
                                 Delete
                             </a>
@@ -113,18 +113,18 @@
                         </div>
                     <div class="flex  gap-2 mt-2">
                         <a href="#"
-                            class="block px-6 py-2 font-medium text-slate-700 border rounded-md shadow border-neutral-300">
+                            class="block px-4 py-2 font-medium text-slate-700 border rounded-md shadow border-neutral-300">
                             <i class="mr-2 fas fa-share"></i>
                             Share
                         </a>
                         {% if session.user and session.user.is_admin %}
                         <a href="/events/edit/{{ event.id }}"
-                            class="block px-6 py-2 font-medium text-slate-700 border rounded-md shadow border-neutral-300">
+                            class="block px-4 py-2 font-medium text-slate-700 border rounded-md shadow border-neutral-300">
                             <i class="mr-2 fas fa-edit"></i>
                             Edit
                         </a>
                         <a href="/events/delete/{{ event.id }}"
-                            class="block px-6 py-2 font-medium text-slate-700 border rounded-md shadow border-neutral-300">
+                            class="block px-4 py-2 font-medium text-slate-700 border rounded-md shadow border-neutral-300">
                             <i class="mr-2 fas fa-trash"></i>
                             Delete
                         </a>
@@ -186,7 +186,7 @@
 {% if not session.user %}
 <section class="py-20 container mx-auto flex flex-col items-center">
     <h3 class="text-3xl font-bold tracking-tight">Join Dad's Playgroup Today!</h3>
-    <a href="/signup" class="px-6 py-2 block font-medium tracking-wider text-white bg-green-600 rounded-md w-fit mt-10">
+    <a href="/signup" class="px-4 py-2 block font-medium tracking-wider text-white bg-green-600 rounded-md w-fit mt-10">
         Join
     </a>
 </section>
