@@ -5,35 +5,45 @@
 {% endblock %}
 
 {% block content %}
-<div class="mt-20 max-w-3xl mx-auto">
+<div class="mt-20 max-w-2xl mx-auto">
     <h1 class="text-3xl font-medium">Members</h1>
     <ul class="divide-y divide-neutral-200 bg-white rounded-xl mt-10">
         {% for member in members %}
         <li class="flex justify-between items-center gap-x-6 py-5 px-8">
-            <div class="flex gap-x-4">
-                <img class="h-12 w-12 flex-none rounded-full bg-neutral-50" src="https://i.pravatar.cc/300?u={{ member.id }}">
+            <a href="/members/{{ member.id }}" class="flex gap-x-4">
+                <img class="flex-none rounded-full bg-neutral-50" src="https://i.pravatar.cc/100?u={{ member.id }}" width="50" height="50">
                 <div class="min-w-0 flex-auto">
                     <p class="text-sm font-semibold leading-6 text-slate-900">{{ member.name }}</p>
                     <p class="mt-1 text-xs leading-5 text-slate-500">{{ member.email }}</p>
                 </div>
-            </div>
-            <div class="flex items-center">
-                <p class="text-sm leading-6 text-slate-900">
-                    {% if member.is_admin %}
+            </a>
+
+            {% if member.is_admin %}
+                <span class="rounded-full bg-green-100 px-2.5 py-0.5 text-sm text-green-700 ml-auto">
                     Admin
-                    {% else %}
-                    Member
-                    {% endif %}
-                </p>
+                </span>
+            {% endif %}
+
+            <div class="inline-flex overflow-hidden rounded-md border bg-white shadow-sm">
                 {% if session.user.is_admin %}
-                    <a href="/members/edit/{{ member.id }}" class="px-6 py-2 ml-4 font-medium text-slate-700 border rounded-md shadow border-neutral-300 hover:bg-neutral-100">
-                        <i class="mr-2 fa fa-edit"></i>
-                        Edit
+                    <a href="/members/edit/{{ member.id }}" class="inline-block border-e p-3 text-gray-700 hover:bg-gray-50" title="Edit Product">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                            class="h-4 w-4">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                        </svg>
                     </a>
                 {% endif %}
+                <a href="/members/{{ member.id }}" class="inline-block p-3 text-gray-700 hover:bg-gray-50">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                        class="w-4 h-4">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                    </svg>
+                </a>
             </div>
         </li>
         {% endfor %}
     </ul>
 </div>
+
 {% endblock %}
