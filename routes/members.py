@@ -50,6 +50,6 @@ def member_edit_action(member_id=None):
     member.update(
         name=request.form["name"],
         email=request.form["email"],
-        is_admin=request.form.get("is_admin"),
+        is_admin=request.form.get("is_admin") == "on",
     )
-    return redirect(f"/members/{member_id}")
+    return redirect(f"/members/")
