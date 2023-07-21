@@ -29,28 +29,25 @@
             {% endif %}
         </div>
         <ul class="mt-4 divide-y">
-
             {% for event in upcoming_events %}
-
                 <li class="flex gap-4 py-6">
-                    <div class="w-36 h-36 bg-slate-300 overflow-hidden rounded-md">
-                        <img src="{{ event.image_url }}" class="block object-cover w-full h-full" />
-                    </div>
-                    <div class="flex flex-col">
-                        <p class="text-sm uppercase tracking-wider text-red-600 font-bold space-x-2">
+                    <img src="{{ event.image_url }}" width="200" class="object-cover rounded-md" />
+                    <div class="flex flex-col w-full ">
+                        <p class="text-sm uppercase tracking-wider font-bold flex justify-between text-red-600">
                             <span>{{ event.relative_date() }}</span>
-                            <span>—</span>
                             <span>{{ event.date }} @ {{ event.time }}</span>
                         </p>
                         <a href="/events/{{ event.id }}" class="text-2xl font-medium hover:underline">{{ event.name }}</a>
-                        <p class="flex items-center gap-1 mt-2">
+                        <div class="flex items-center my-2">
                             <img class="h-8 w-8 flex-none mr-2 rounded-full bg-neutral-50" src="https://i.pravatar.cc/300?u={{ event.creator.id }}">
-                            <span class="font-light text-slate-700 text-sm">Created by</span>
-                            <a href="/members/{{ event.creator.id }}" class="hover:underline">
-                                {{ event.creator.name }}
-                            </a>
-                        </p>
-                        <div class="flex gap-2 mt-auto">
+                            <p>
+                                <span class="font-light text-slate-700 text-sm">Created by</span>
+                                <a href="/members/{{ event.creator.id }}" class="hover:underline">
+                                    {{ event.creator.name }}
+                                </a>
+                            </p>
+                        </div>
+                        <div class="flex gap-2 mt-2">
                             <a href="/events/download/{{ event.id }}"
                                 class="block px-6 py-2 font-medium text-white rounded-md bg-slate-500 hover:bg-slate-600">
                                 <i class="mr-2 fas fa-calendar-plus"></i>
@@ -97,25 +94,24 @@
         <ul class="mt-4 divide-y">
             {% for event in past_events %}
             <li class="flex gap-4 py-6">
-                <div class="w-36 h-36 bg-slate-300 overflow-hidden rounded-md">
-                    <img src="{{ event.image_url }}" class="block object-cover w-full h-full" />
-                </div>
-                <div class="flex flex-col">
-                    <p class="text-sm uppercase tracking-wider text-red-600 font-bold space-x-2">
-                        <span>{{ event.relative_date() }}</span>
-                        <span>—</span>
-                        <span>{{ event.date }} {{ event.datetime.date().year }}</span>
-                    </p>
-                    <a href="/events/{{ event.id }}" class="text-2xl font-medium hover:underline">{{ event.name }}</a>
-                    <p class="flex items-center gap-1 mt-2">
-                        <img class="h-8 w-8 flex-none mr-2 rounded-full bg-neutral-50"
-                            src="https://i.pravatar.cc/300?u={{ event.creator.id }}">
-                        <span class="font-light text-slate-700 text-sm">Created by</span>
-                        <a href="/members/{{ event.creator.id }}" class="hover:underline">
-                            {{ event.creator.name }}
-                        </a>
-                    </p>
-                    <div class="flex gap-2 mt-auto">
+                    <img src="{{ event.image_url }}" width="200" class="object-cover rounded-md" />
+                    <div class="flex flex-col w-full ">
+                        <p class="text-sm uppercase tracking-wider font-bold flex justify-between text-red-600">
+                            <span>{{ event.relative_date() }}</span>
+                            <span>{{ event.date }} @ {{ event.time }}</span>
+                        </p>
+                        <a href="/events/{{ event.id }}" class="text-2xl font-medium hover:underline">{{ event.name }}</a>
+                        <div class="flex items-center my-2">
+                            <img class="h-8 w-8 flex-none mr-2 rounded-full bg-neutral-50"
+                                src="https://i.pravatar.cc/300?u={{ event.creator.id }}">
+                            <p>
+                                <span class="font-light text-slate-700 text-sm">Created by</span>
+                                <a href="/members/{{ event.creator.id }}" class="hover:underline">
+                                    {{ event.creator.name }}
+                                </a>
+                            </p>
+                        </div>
+                    <div class="flex  gap-2 mt-2">
                         <a href="#"
                             class="block px-6 py-2 font-medium text-slate-700 border rounded-md shadow border-neutral-300">
                             <i class="mr-2 fas fa-share"></i>
