@@ -1,16 +1,39 @@
 {% extends "base.html.jinja" %}
 
 {% block title %}
-    - Members
+- Members
 {% endblock %}
 
 {% block content %}
-    <h1>Members</h1>
-    <ul>
+<div class="mt-20 max-w-3xl mx-auto">
+    <h1 class="text-3xl font-medium">Members</h1>
+    <ul class="divide-y divide-neutral-200 bg-white rounded-xl mt-10">
         {% for member in members %}
-            <li>
-                <a href="/members/{{ member.id }}">{{ member.name }}</a>
-            </li>
+        <li class="flex justify-between items-center gap-x-6 py-5 px-8">
+            <div class="flex gap-x-4">
+                <img class="h-12 w-12 flex-none rounded-full bg-neutral-50" src="https://i.pravatar.cc/300?u={{ member.id }}">
+                <div class="min-w-0 flex-auto">
+                    <p class="text-sm font-semibold leading-6 text-slate-900">{{ member.name }}</p>
+                    <p class="mt-1 text-xs leading-5 text-slate-500">{{ member.email }}</p>
+                </div>
+            </div>
+            <div class="flex items-center">
+                <p class="text-sm leading-6 text-slate-900">
+                    {% if member.is_admin %}
+                    Admin
+                    {% else %}
+                    Member
+                    {% endif %}
+                </p>
+                {% if session.user.is_admin %}
+                    <a href="/members/edit/{{ member.id }}" class="px-6 py-2 ml-4 font-medium text-slate-700 border rounded-md shadow border-neutral-300 hover:bg-neutral-100">
+                        <i class="mr-2 fa fa-edit"></i>
+                        Edit
+                    </a>
+                {% endif %}
+            </div>
+        </li>
         {% endfor %}
     </ul>
+</div>
 {% endblock %}
