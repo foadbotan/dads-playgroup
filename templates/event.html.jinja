@@ -5,27 +5,37 @@
 {% endblock %}
 
 {% block content %}
-    <h1>{{ title }}</h1>
-    <img src="{{ event.image_url }}" >
-    <p>{{ event.relative_date() }}</p>
-    <p>Date: {{ event.date }}</p>
-    <p>Time: {{ event.time }}</p>
-    <p>Location: {{ event.location }}</p>
-    <p>Description: {{ event.description }}</p>
-    {% if session.user %}
-        <p>Attending:</p>
-        <ul>
-            {% for attendee in event.attendees %}
-                <li><a href="/members/{{ attendee.id }}">{{ attendee.name }}</a></li>
-            {% endfor %}
-        </ul>
-        {% if button_text %}
-            <form method="POST">
-                <input type="submit" value="{{ button_text }}">
-            </form>
-        {% elif session.user.is_admin %}
-            <a href="/events/edit/{{ event.id }}">Edit</a>
-            <a href="/events/delete/{{ event.id }}">Delete</a>
+    <div class="container mx-auto">
+        <div class="">
+            <img src="{{ event.image_url }}" class="rounded-xl mx-auto max-w-2xl">
+        </div>
+        <h1 class="text-3xl font-semibold">{{ title }}</h1>
+        <p>{{ event.relative_date() }}</p>
+        <p>Date: {{ event.date }}</p>
+        <p>Time: {{ event.time }}</p>
+        <p>Location: {{ event.location }}</p>
+        <p>Description: {{ event.description }}</p>
+        {% if session.user %}
+            <p class="text-2xl font-medium mt-6 mb-2">Going</p>
+            <ul class="flex gap-6">
+                {% for attendee in event.attendees %}
+                    <li class="">
+                        <a href="/members/{{ attendee.id }}" class="flex flex-col items-center">
+                            <img class="w-20 h-20 rounded-full" src="https://i.pravatar.cc/200?u={{ attendee.id }}">
+                            <span class="text-sm text-neutral-500">{{ attendee.name }}</span>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+            {% if button_text %}
+                <form method="POST">
+                    <input type="submit" value="{{ button_text }}">
+                </form>
+            {% elif session.user.is_admin %}
+                <a href="/events/edit/{{ event.id }}">Edit</a>
+                <a href="/events/delete/{{ event.id }}">Delete</a>
+            {% endif %}
         {% endif %}
-    {% endif %}
+    </div>
+
 {% endblock %}
