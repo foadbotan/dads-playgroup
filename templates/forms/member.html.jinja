@@ -8,18 +8,28 @@
     <h1 class="text-center text-3xl font-semibold mt-10 mb-20">{{ title }}</h1>
     <form method="POST">
         <div class="max-w-sm mx-auto relative">
-            <img class="w-60 h-60 shadow-lg flex-none rounded-md bg-neutral-50 mx-auto" src="https://i.pravatar.cc/500?u={{ member.id }}">
+            <img class="w-60 h-60 shadow-lg flex-none rounded-full bg-neutral-50 mx-auto" src="https://i.pravatar.cc/500?u={{ member.id }}">
             <div class="p-10 flex flex-col gap-2">
                 <p class="flex flex-col mt-2">
                     <label for="name">Name</label>
                     <input class="p-2 bg-neutral-200 rounded-md" type="text" value="{{ member.name }}" id="name" name="name" required>
+                </p>
                 <p class="flex flex-col mt-2">
                     <label for="email">Email</label>
                     <input class="p-2 bg-neutral-200 rounded-md" type="text" value="{{ member.email }}" id="email" name="email" required>
                 </p>
                 <p class="self-end mt-6">
                     <label for="is_admin">Is an Admin</label>
-                    <input class="ml-2 accent-slate-500" type="checkbox" value="{{ member.is_admin }}" id="is_admin" name="is_admin">
+                    <input
+                        class="ml-2 accent-slate-500"
+                        type="checkbox"
+                        id="is_admin"
+                        name="is_admin"
+
+                        {% if member.is_admin %}
+                            checked
+                        {% endif %}
+                    >
                 </p>
                 <button type="submit" class="self-end px-6 py-2 font-medium text-white rounded-md bg-slate-500 hover:bg-slate-600">{{ button_text }}</button>
             </div>
