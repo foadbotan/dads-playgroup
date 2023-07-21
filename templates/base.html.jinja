@@ -13,7 +13,7 @@
     />
     <title>Dad's Playgroup {% block title %}{% endblock %}</title>
   </head>
-  <body class="bg-neutral-200 text-slate-700">
+  <body class="bg-neutral-200 text-slate-700 min-h-screen flex flex-col">
     <header class="bg-white border-b">
       <nav class="container flex items-center gap-6 py-6 mx-auto">
         <a href="/" class="mr-auto text-xl font-semibold text-red-600">
@@ -21,20 +21,20 @@
         </a>
         <ul class="flex">
           <li>
-            <a class="py-2 px-6 hover:bg-slate-100 rounded-md" href="/#events"
+            <a class="py-2 px-6 hover:bg-neutral-100 rounded-md" href="/events"
               >Events</a
             >
           </li>
           {% if session.user %}
           <li>
-            <a class="py-2 px-6 hover:bg-slate-100 rounded-md" href="/members"
+            <a class="py-2 px-6 hover:bg-neutral-100 rounded-md" href="/members"
               >Members</a
             >
           </li>
           {% endif %} {% if session.user %}
           <li>
             <a
-              class="py-2 px-6 hover:bg-slate-100 rounded-md"
+              class="py-2 px-6 hover:bg-neutral-100 rounded-md"
               href="/members/{{ session.user.id }}"
             >
               {{ session.user.name }}
@@ -43,7 +43,7 @@
           <li>
             <a
               href="/logout"
-              class="px-6 py-2 ml-4 font-medium text-gray-700 hover:bg-slate-100 border rounded-md shadow border-neutral-300"
+              class="px-6 py-2 ml-4 font-medium text-gray-700 hover:bg-neutral-100 border rounded-md shadow border-neutral-300"
             >
               Logout
             </a>
@@ -52,7 +52,7 @@
           <li>
             <a
               href="/login"
-              class="px-6 py-2 ml-4 font-medium text-gray-700 hover:bg-slate-100 border rounded-md shadow border-neutral-300"
+              class="px-6 py-2 ml-4 font-medium text-gray-700 hover:bg-neutral-100 border rounded-md shadow border-neutral-300"
             >
               Login
             </a>
@@ -60,7 +60,7 @@
           <li>
             <a
               href="/signup"
-              class="px-6 py-2 ml-4 font-medium text-gray-700 hover:bg-slate-100 border rounded-md shadow border-neutral-300"
+              class="px-6 py-2 ml-4 font-medium text-gray-700 hover:bg-neutral-100 border rounded-md shadow border-neutral-300"
             >
               Sign up
             </a>
@@ -70,25 +70,33 @@
       </nav>
     </header>
     <main>{% block content %}{% endblock %}</main>
-    <footer
-      class="container flex items-center justify-between py-6 mx-auto text-sm text-gray-600 border-t"
-    >
-      <p>&copy; Dad's Playgroup 2023</p>
-      <nav>
-        <ul class="flex">
-          <li>
-            <a href="/" class="py-2 px-6 hover:bg-slate-100 rounded-md" >Home</a>
-          </li>
-          <li>
-            <a href="/events" class="py-2 px-6 hover:bg-slate-100 rounded-md" >Events</a>
-          </li>
-          {% if session.user %}
-          <li>
-            <a href="/members" class="py-2 px-6 hover:bg-slate-100 rounded-md" >Members</a>
-          </li>
-          {% endif %}
-        </ul>
-      </nav>
+    <footer class="bg-white mt-auto">
+      <div
+        class="container flex items-center justify-between py-6 mx-auto text-sm text-gray-600"
+      >
+        <p>&copy; Dad's Playgroup 2023</p>
+        <nav>
+          <ul class="flex">
+            <li>
+              <a href="/" class="py-2 px-6 hover:bg-neutral-100 rounded-md"
+                >Home</a
+              >
+            </li>
+            <li>
+              <a href="/events" class="py-2 px-6 hover:bg-neutral-100 rounded-md"
+                >Events</a
+              >
+            </li>
+            {% if session.user %}
+            <li>
+              <a href="/members" class="py-2 px-6 hover:bg-neutral-100 rounded-md"
+                >Members</a
+              >
+            </li>
+            {% endif %}
+          </ul>
+        </nav>
+      </div>
     </footer>
   </body>
 </html>

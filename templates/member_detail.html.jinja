@@ -6,22 +6,25 @@
 
 {% block content %}
     <h1>{{ member.name }}</h1>
+
     {% if member.attending %}
         <p>Attending:</p>
         <ul>
             {% for event in member.attending %}
-                <li><a href="/events/{{ event.id }}">{{ event.name }}</a></li>
+            <li><a href="/events/{{ event.id }}">{{ event.name }}</a></li>
             {% endfor %}
         </ul>
     {% endif %}
+
     {% if member.created %}
         <p>Created:</p>
         <ul>
             {% for event in member.created %}
-                <li><a href="/events/{{ event.id }}">{{ event.name }}</a></li>
+            <li><a href="/events/{{ event.id }}">{{ event.name }}</a></li>
             {% endfor %}
         </ul>
     {% endif %}
+
     {% if session.user.is_admin %}
         <a href="/members/edit/{{ member.id }}">Edit</a>
     {% endif %}
