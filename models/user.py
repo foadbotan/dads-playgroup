@@ -63,6 +63,12 @@ class User(db.Model):
         db.session.commit()
         return event
 
+    def upcoming_events(self):
+        return [event for event in self.attending if event.is_upcoming()]
+
+    def past_events(self):
+        return [event for event in self.attending if not event.is_upcoming()]
+
     @staticmethod
     def hash_password(password):
         return bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()

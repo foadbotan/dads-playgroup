@@ -80,6 +80,9 @@ class Event(db.Model):
             self.attendees.append(user)
         db.session.commit()
 
+    def is_upcoming(self):
+        return self.datetime > datetime.now()
+
     @property
     def date(self):
         return self.datetime.strftime("%a, %d %b")
