@@ -7,7 +7,7 @@
 {% block content %}
 <div class="mt-20 max-w-2xl mx-auto">
     <h1 class="text-3xl font-medium">Members</h1>
-    <ul class="divide-y divide-neutral-200 bg-white rounded-xl mt-10">
+    <ul class="divide-y divide-neutral-200 mt-10 bg-white border shadow-lg border-neutral-300 rounded-xl">
         {% for member in members %}
         <li class="flex justify-between items-center gap-x-6 py-5 px-8">
             <a href="/members/{{ member.id }}" class="flex gap-x-4">
