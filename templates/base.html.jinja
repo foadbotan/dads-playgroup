@@ -18,14 +18,17 @@
             <a href="/" class="mr-auto text-xl font-semibold text-red-600">
                 Dad's Playgroup
             </a>
-            <ul class="flex">
+            <ul class="flex items-center">
                 <li><a class="py-2 px-4 hover:bg-neutral-100 rounded-md" href="/events">Events</a></li>
                 {% if session.user %}
                     <li><a class="py-2 px-4 hover:bg-neutral-100 rounded-md" href="/members">Members</a></li>
                 {% endif %}
                 {% if session.user %}
-                    <li>
-                        <a class="py-2 px-4 hover:bg-neutral-100 rounded-md" href="/members/{{ session.user.id }}">{{ session.user.name }}</a>
+                    <li class="">
+                        <a class="py-2 px-4 hover:bg-neutral-100 rounded-md flex items-center gap-2" href="/members/{{ session.user.id }}">
+                            <img class="h-6 w-6 flex-none rounded-full bg-neutral-50" src="https://i.pravatar.cc/300?u={{ session.user.id }}">
+                            <span class="">{{ session.user.name }}</span>
+                        </a>
                     </li>
                     <li>
                         <a href="/logout" class="px-4 py-2 ml-4 font-medium  hover:bg-neutral-100 border rounded-md shadow border-neutral-300">
