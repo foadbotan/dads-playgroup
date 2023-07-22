@@ -80,13 +80,11 @@
                             {% endif %} {% if session.user and session.user.is_admin %}
                             <a href="/events/edit/{{ event.id }}"
                                 class="block px-4 py-2  text-slate-700 border rounded-md shadow border-neutral-300 hover:bg-neutral-100">
-                                <i class="mr-2 fas fa-edit"></i>
-                                Edit
+                                <i class="fas fa-edit"></i>
                             </a>
                             <a href="/events/delete/{{ event.id }}"
                                 class="block px-4 py-2  text-slate-700 border rounded-md shadow border-neutral-300 hover:bg-neutral-100">
-                                <i class="mr-2 fas fa-trash"></i>
-                                Delete
+                                <i class="fas fa-trash"></i>
                             </a>
                             {% endif %}
                         </div>
