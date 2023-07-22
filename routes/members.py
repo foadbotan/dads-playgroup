@@ -53,3 +53,29 @@ def member_edit_action(member_id=None):
         is_admin=request.form.get("is_admin") == "on",
     )
     return redirect(f"/members/")
+
+
+@members_bp.get("/delete/<int:member_id>")
+@require_admin
+def member_delete_form(member_id=None):
+    member = User.get(id=member_id)
+    if not member:
+        # TODO: flash message
+        return redirect("/members")
+    return render_template(
+        "forms/member.html.jinja",
+        member=member,
+        title="Delete Member",
+        button_text="Delete",
+    )
+
+
+@members_bp.post("/delete/<int:member_id>")
+@require_admin
+def member_delete_action(member_id=None):
+    member = User.get(id=member_id)
+    if not member:
+        # TODO: flash message
+        return redirect("/members")
+    member.delete()
+    return redirect("/members/")
