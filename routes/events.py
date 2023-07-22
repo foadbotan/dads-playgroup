@@ -64,7 +64,7 @@ def event_edit_action(event_id=None):
 def event_delete_form(event_id=None):
     event = Event.get(event_id)
     return render_template(
-        "event.html.jinja",
+        "forms/event.html.jinja",
         event=event,
         title=f"Delete {event.name}",
         button_text="Confirm Delete",
