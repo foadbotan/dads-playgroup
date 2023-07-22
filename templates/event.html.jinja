@@ -5,37 +5,96 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container mx-auto">
-        <div class="">
-            <img src="{{ event.image_url }}" class="rounded-xl mx-auto max-w-2xl">
-        </div>
-        <h1 class="text-3xl font-semibold">{{ title }}</h1>
-        <p>{{ event.relative_date() }}</p>
-        <p>Date: {{ event.date }}</p>
-        <p>Time: {{ event.time }}</p>
-        <p>Location: {{ event.location }}</p>
-        <p>Description: {{ event.description }}</p>
-        {% if session.user %}
-            <p class="text-2xl font-medium mt-6 mb-2">Going</p>
-            <ul class="flex gap-6">
-                {% for attendee in event.attendees %}
-                    <li class="">
-                        <a href="/members/{{ attendee.id }}" class="flex flex-col items-center">
-                            <img class="w-20 h-20 rounded-full" src="https://i.pravatar.cc/200?u={{ attendee.id }}">
-                            <span class="text-sm text-neutral-500">{{ attendee.name }}</span>
-                        </a>
-                    </li>
-                {% endfor %}
-            </ul>
-            {% if button_text %}
-                <form method="POST">
-                    <input type="submit" value="{{ button_text }}">
-                </form>
-            {% elif session.user.is_admin %}
-                <a href="/events/edit/{{ event.id }}">Edit</a>
-                <a href="/events/delete/{{ event.id }}">Delete</a>
-            {% endif %}
-        {% endif %}
-    </div>
+<div class="container my-24 mx-auto md:px-6">
+    <section class="mb-32">
+        <div class="container mx-auto text-center lg:text-left xl:px-32">
+            <div class="grid items-center lg:grid-cols-2">
+                <div class="mb-12 lg:mb-0">
+                    <div
+                        class="relative rounded-xl bg-white px-6 py-12 shadow-md md:px-12 lg:-mr-14">
+                        <h2 class="mb-8 text-3xl font-bold">{{ event.name }}</h2>
+                        <p class="mb-8 pb-2 text-slate-500 dark:text-slate-300 lg:pb-0">
+                            {{ event.description }}
+                        </p>
 
+                        <div class="mx-auto mb-8 flex flex-col md:flex-row md:justify-around lg:justify-between">
+                                <p class="mx-auto mb-2 flex items-center md:mx-0 lg:mb-0">
+                                    <i class="mr-2 fas fa-calendar-day"></i>
+                                    {{ event.date }}
+                                </p>
+                                <p class="mx-auto mb-2 flex items-center md:mx-0 lg:mb-0">
+                                    <i class="mr-2 fas fa-map-marker-alt"></i>
+                                    {{ event.location }}
+                                </p>
+                                <p class="mx-auto mb-2 flex items-center md:mx-0 lg:mb-0">
+                                    <i class="mr-2 fas fa-clock"></i>
+                                    {{ event.time }}
+                                </p>
+                        </div>
+
+                        <div class="flex justify-between">
+
+                        </div>
+                        {% if session.user %}
+                            <div class="">
+                                <p class="text-2xl font-medium mt-6 mb-2">Going</p>
+                                <ul class="flex gap-2 mx-auto mb-2 md:mx-0 lg:mb-0 justify-center mt-6">
+                                    {% for attendee in event.attendees %}
+                                        <li class="">
+                                            <a href="/members/{{ attendee.id }}" class="flex flex-col items-center">
+                                                <img class="w-16 h-16 rounded-full" src="https://i.pravatar.cc/200?u={{ attendee.id }}">
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
+                        <div class="flex gap-2 mt-6 justify-center">
+                            <a href="/events/download/{{ event.id }}"
+                                class="block px-4 py-2  text-white rounded-md bg-slate-500 hover:bg-slate-600">
+                                <i class="mr-2 fas fa-calendar-plus"></i>
+                                Add to calendar
+                            </a>
+                            {% if session.user and session.user.id in event.attendee_ids() %}
+                            <a href="/events/rsvp/{{ event.id }}"
+                                class="block px-4 py-2  text-green-800 rounded-md border border-green-400 bg-green-200 hover:bg-green-300">
+                                <i class="mr-2 fa fa-check"></i>
+                                Going
+                            </a>
+                            {% elif session.user %}
+                            <a href="/events/rsvp/{{ event.id }}"
+                                class="block px-4 py-2  text-slate-700 border rounded-md shadow border-neutral-300 hover:bg-neutral-100">
+                                <i class="mr-2 fa fa-plus"></i>
+                                RSVP
+                            </a>
+                            {% else %}
+                            <a href="/signup"
+                                class="block px-4 py-2  text-slate-700 border rounded-md shadow border-neutral-300 hover:bg-neutral-100">
+                                <i class="mr-2 fa fa-plus"></i>
+                                RSVP
+                            </a>
+                            {% endif %} {% if session.user and session.user.is_admin %}
+                            <a href="/events/edit/{{ event.id }}"
+                                class="block px-4 py-2  text-slate-700 border rounded-md shadow border-neutral-300 hover:bg-neutral-100">
+                                <i class="mr-2 fas fa-edit"></i>
+                                Edit
+                            </a>
+                            <a href="/events/delete/{{ event.id }}"
+                                class="block px-4 py-2  text-slate-700 border rounded-md shadow border-neutral-300 hover:bg-neutral-100">
+                                <i class="mr-2 fas fa-trash"></i>
+                                Delete
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <img src="{{ event.image_url }}"
+                        class="h-[800px] w-full object-cover rounded-xl shadow-lg dark:shadow-black/20" alt="image" />
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
 {% endblock %}
