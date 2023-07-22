@@ -9,9 +9,13 @@
     <section class="mb-32">
         <div class="container mx-auto text-center lg:text-left xl:px-32">
             <div class="grid items-center lg:grid-cols-2">
-                <div class="mb-12 lg:mb-0">
+                <div class="mb-6 lg:mb-0">
                     <div
                         class="relative rounded-xl bg-white px-6 py-12 shadow-md md:px-12 lg:-mr-14">
+                        <div class="absolute top-0 right-0 mt-3 mr-6 text-slate-600 bg-slate-100 py-1 px-4 rounded-full capitalize">
+                            {{ event.relative_date() }}
+                        </div>
+
                         <h2 class="mb-8 text-3xl font-bold">{{ event.name }}</h2>
                         <p class="mb-8 pb-2 text-slate-500 dark:text-slate-300 lg:pb-0">
                             {{ event.description }}
