@@ -13,8 +13,8 @@
             <a href="/members/{{ member.id }}" class="flex gap-x-4">
                 <img class="flex-none rounded-full bg-neutral-50" src="https://i.pravatar.cc/100?u={{ member.id }}" width="50" height="50">
                 <div class="min-w-0 flex-auto">
-                    <p class="text-sm font-semibold leading-6 text-slate-900">{{ member.name }}</p>
-                    <p class="mt-1 text-xs leading-5 text-slate-500">{{ member.email }}</p>
+                    <p class="text-sm font-semibold leading-6 text-neutral-900">{{ member.name }}</p>
+                    <p class="mt-1 text-xs leading-5 text-neutral-500">{{ member.email }}</p>
                 </div>
             </a>
 
@@ -26,14 +26,14 @@
 
             <div class="inline-flex overflow-hidden rounded-md border bg-white shadow-sm">
                 {% if session.user.is_admin %}
-                    <a href="/members/edit/{{ member.id }}" class="inline-block border-e p-3 text-gray-700 hover:bg-gray-50" title="Edit Product">
+                    <a href="/members/edit/{{ member.id }}" class="inline-block border-e p-3 hover:bg-neutral-50" title="Edit Product">
                         <i class="fas fa-edit"></i>
                     </a>
-                    <a href="/members/delete/{{ member.id }}" class="inline-block border-e p-3 text-gray-700 hover:bg-gray-50" title="Edit Product">
+                    <a href="/members/delete/{{ member.id }}" class="inline-block border-e p-3 hover:bg-neutral-50" title="Edit Product">
                         <i class="fas fa-trash"></i>
                     </a>
                 {% endif %}
-                <a href="/members/{{ member.id }}" class="inline-block p-3 text-gray-700 hover:bg-gray-50">
+                <a href="/members/{{ member.id }}" class="inline-block p-3 hover:bg-neutral-50">
                     <i class="fas fa-angle-right"></i>
                 </a>
             </div>
@@ -41,5 +41,4 @@
         {% endfor %}
     </ul>
 </div>
-
 {% endblock %}

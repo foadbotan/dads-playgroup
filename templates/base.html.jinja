@@ -12,7 +12,7 @@
     </title>
 </head>
 
-<body class="bg-neutral-200 text-slate-700 min-h-screen flex flex-col">
+<body class="bg-neutral-200 text-neutral-700 min-h-screen flex flex-col">
     <header class="bg-white border-b">
         <nav class="container flex items-center gap-6 py-6 mx-auto">
             <a href="/" class="mr-auto text-xl font-semibold text-red-600">
@@ -28,18 +28,18 @@
                         <a class="py-2 px-4 hover:bg-neutral-100 rounded-md" href="/members/{{ session.user.id }}">{{ session.user.name }}</a>
                     </li>
                     <li>
-                        <a href="/logout" class="px-4 py-2 ml-4 font-medium text-gray-700 hover:bg-neutral-100 border rounded-md shadow border-neutral-300">
+                        <a href="/logout" class="px-4 py-2 ml-4 font-medium  hover:bg-neutral-100 border rounded-md shadow border-neutral-300">
                             Logout
                         </a>
                     </li>
                 {% else %}
                     <li>
-                        <a href="/login" class="px-4 py-2 ml-4 font-medium text-gray-700 hover:bg-neutral-100 border rounded-md shadow border-neutral-300">
+                        <a href="/login" class="px-4 py-2 ml-4 font-medium  hover:bg-neutral-100 border rounded-md shadow border-neutral-300">
                             Login
                         </a>
                     </li>
                     <li>
-                        <a href="/signup" class="px-4 py-2 ml-4 font-medium text-gray-700 hover:bg-neutral-100 border rounded-md shadow border-neutral-300">
+                        <a href="/signup" class="px-4 py-2 ml-4 font-medium  hover:bg-neutral-100 border rounded-md shadow border-neutral-300">
                             Sign up
                         </a>
                     </li>
@@ -53,7 +53,7 @@
     </main>
 
     <footer class="bg-white mt-auto">
-        <div class="container flex items-center justify-between py-6 mx-auto text-sm text-gray-600">
+        <div class="container flex items-center justify-between py-6 mx-auto text-sm text-neutral-500">
             <p>&copy; Dad's Playgroup 2023</p>
             <nav>
                 <ul class="flex">

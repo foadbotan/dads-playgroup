@@ -1200,6 +1200,11 @@ video {
   background-color: rgb(34 197 94 / var(--tw-bg-opacity));
 }
 
+.bg-neutral-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(115 115 115 / var(--tw-bg-opacity));
+}
+
 .object-cover {
   -o-object-fit: cover;
      object-fit: cover;
@@ -1497,12 +1502,31 @@ video {
   color: rgb(71 85 105 / var(--tw-text-opacity));
 }
 
+.text-neutral-700 {
+  --tw-text-opacity: 1;
+  color: rgb(64 64 64 / var(--tw-text-opacity));
+}
+
+.text-neutral-300 {
+  --tw-text-opacity: 1;
+  color: rgb(212 212 212 / var(--tw-text-opacity));
+}
+
+.text-neutral-900 {
+  --tw-text-opacity: 1;
+  color: rgb(23 23 23 / var(--tw-text-opacity));
+}
+
 .text-opacity-80 {
   --tw-text-opacity: 0.8;
 }
 
 .accent-slate-500 {
   accent-color: #64748b;
+}
+
+.accent-neutral-500 {
+  accent-color: #737373;
 }
 
 .opacity-60 {
@@ -1578,6 +1602,16 @@ video {
 .hover\:bg-slate-50:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(248 250 252 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-neutral-50:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(250 250 250 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-neutral-600:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(82 82 82 / var(--tw-bg-opacity));
 }
 
 .hover\:underline:hover {

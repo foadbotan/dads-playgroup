@@ -10,7 +10,7 @@
             <img class="shadow-md flex-none -mt-20 rounded-full bg-neutral-50 mx-auto" width="200" height="200" src="https://i.pravatar.cc/500?u={{ member.id }}">
             <div class="p-5 flex flex-col items-center">
                 <h1 class="text-xl font-medium">{{ member.name }}</h1>
-                <span class="text-sm text-slate-500 mt-1">{{ member.email }}</span>
+                <span class="text-sm text-neutral-500 mt-1">{{ member.email }}</span>
             </div>
         </div>
     </div>
@@ -41,7 +41,7 @@
                             <img class="h-8 w-8 flex-none mr-2 rounded-full bg-neutral-50"
                                 src="https://i.pravatar.cc/300?u={{ event.creator.id }}">
                             <p>
-                                <span class="font-light text-slate-700 text-sm">Created by</span>
+                                <span class="font-light text-neutral-700 text-sm">Created by</span>
                                 <a href="/members/{{ event.creator.id }}" class="hover:underline">
                                     {{ event.creator.name }}
                                 </a>
@@ -61,24 +61,24 @@
                             </a>
                             {% elif session.user %}
                             <a href="/events/rsvp/{{ event.id }}"
-                                class="block px-4 py-2  text-slate-700 border rounded-md shadow border-neutral-300 hover:bg-neutral-100">
+                                class="block px-4 py-2  text-neutral-700 border rounded-md shadow border-neutral-300 hover:bg-neutral-100">
                                 <i class="mr-2 fa fa-plus"></i>
                                 RSVP
                             </a>
                             {% else %}
                             <a href="/signup"
-                                class="block px-4 py-2  text-slate-700 border rounded-md shadow border-neutral-300 hover:bg-neutral-100">
+                                class="block px-4 py-2  text-neutral-700 border rounded-md shadow border-neutral-300 hover:bg-neutral-100">
                                 <i class="mr-2 fa fa-plus"></i>
                                 RSVP
                             </a>
                             {% endif %} {% if session.user and session.user.is_admin %}
                             <a href="/events/edit/{{ event.id }}"
-                                class="block px-4 py-2  text-slate-700 border rounded-md shadow border-neutral-300 hover:bg-neutral-100">
+                                class="block px-4 py-2  text-neutral-700 border rounded-md shadow border-neutral-300 hover:bg-neutral-100">
                                 <i class="mr-2 fas fa-edit"></i>
                                 Edit
                             </a>
                             <a href="/events/delete/{{ event.id }}"
-                                class="block px-4 py-2  text-slate-700 border rounded-md shadow border-neutral-300 hover:bg-neutral-100">
+                                class="block px-4 py-2  text-neutral-700 border rounded-md shadow border-neutral-300 hover:bg-neutral-100">
                                 <i class="mr-2 fas fa-trash"></i>
                                 Delete
                             </a>
@@ -105,25 +105,25 @@
                             <img class="h-8 w-8 flex-none mr-2 rounded-full bg-neutral-50"
                                 src="https://i.pravatar.cc/300?u={{ event.creator.id }}">
                             <p>
-                                <span class="font-light text-slate-700 text-sm">Created by</span>
+                                <span class="font-light text-neutral-700 text-sm">Created by</span>
                                 <a href="/members/{{ event.creator.id }}" class="hover:underline">
                                     {{ event.creator.name }}
                                 </a>
                             </p>
                         </div>
                         <div class="flex  gap-2 mt-2">
-                            <a href="#" class="block px-4 py-2 text-slate-700 border rounded-md shadow border-neutral-300">
+                            <a href="#" class="block px-4 py-2 text-neutral-700 border rounded-md shadow border-neutral-300">
                                 <i class="mr-2 fas fa-share"></i>
                                 Share
                             </a>
                             {% if session.user and session.user.is_admin %}
                             <a href="/events/edit/{{ event.id }}"
-                                class="block px-4 py-2 text-slate-700 border rounded-md shadow border-neutral-300">
+                                class="block px-4 py-2 text-neutral-700 border rounded-md shadow border-neutral-300">
                                 <i class="mr-2 fas fa-edit"></i>
                                 Edit
                             </a>
                             <a href="/events/delete/{{ event.id }}"
-                                class="block px-4 py-2 text-slate-700 border rounded-md shadow border-neutral-300">
+                                class="block px-4 py-2 text-neutral-700 border rounded-md shadow border-neutral-300">
                                 <i class="mr-2 fas fa-trash"></i>
                                 Delete
                             </a>
